@@ -233,7 +233,7 @@ Configuration is read from the existing root `.env`; Azure OpenAI adds an option
 
 `llm_provider.py` deliberately does **not** call `llm_service.llm_factory.get_llm_client()` — that factory returns clients implementing this repo's own `LLMClient` Protocol (`llm_service/base_client.py`), a different interface than `neo4j_graphrag.llm.LLMInterface`. Both read the same `.env` values through the same `Settings` class, so the two stay consistent without being coupled — no adapter/shim was needed, since `neo4j_graphrag` ships thin `OpenAILLM`/`AzureOpenAILLM`/`AnthropicLLM` wrappers around the same underlying SDKs (`openai`, `anthropic`) already in `requirements/base.txt`.
 
-To run this yourself: `./start_nl2cypher.sh` (port 9060) or `python -m NL2Cypher.cli "<question>"` — beyond what `start_backend.sh` already requires (`.env`, `.venv`, live Neo4j), the default `schema_source="live"` also requires the **APOC plugin** enabled on that Neo4j instance. If APOC isn't available, either install it or pass `schema_source="curated"` (`--curated-schema` on the CLI, or `NL2CypherEngine(schema_source="curated")` in code).
+To run this yourself: `./start_nl2cypher.sh` (port 9060) or `python -m NL2Cypher.cli "<question>"` — beyond what `start_backend.sh` already requires (`.env`, `.venv`, live Neo4j), schema introspection requires the **APOC plugin** enabled on that Neo4j instance (see `schema_context.py`'s docstring). Schema is cached for `Settings.schema_cache_ttl_seconds` (default 900s); pass `--refresh-schema` on the CLI, or `NL2CypherEngine(force_schema_refresh=True)` / call `.refresh_schema()` in code, to bypass the cache and re-introspect immediately after changing the graph.
 
 ## 7. What was deliberately left out of this POC
 
