@@ -1,0 +1,183 @@
+====================================================================================================
+Timestamp: 2026-07-07T07:09:53.233080+00:00
+
+NL QUERY:
+  Why is stockout rate increasing for SKU_1001 at DC_EAST?
+
+GRAPHRAG CONTEXT RETRIEVED (schema passed to the LLM):
+Node properties:
+GraphNode {id: STRING, label: STRING, name: STRING, ontology_version: STRING, description: STRING, rca_relevance: STRING, domain: STRING, source_file: STRING, updated_at: DATE_TIME, country: STRING, region: STRING, schema: STRING, catalog: STRING, grain: STRING, action_owner: STRING, approval_required: BOOLEAN, lead_time_days: INTEGER, directionality: STRING, gold_table: STRING, outcome_column: STRING, category: STRING, tier: INTEGER, country_of_origin: STRING, is_backup: BOOLEAN, risk_category: STRING, regulation: STRING, impact_horizon_days: INTEGER, mode: STRING, reliability_score: FLOAT, risk_level: STRING, avg_dwell_days: FLOAT, origin_port: STRING, is_primary: BOOLEAN, avg_transit_days: INTEGER, destination_dc: STRING, cost_premium_pct: INTEGER, channel: STRING, date: STRING, bias_direction: STRING, sku_id: STRING, dc_id: STRING, forecast_error_pct: FLOAT, forecast_units: INTEGER, promotion_flag: BOOLEAN, actual_demand_units: INTEGER, on_hand_units: INTEGER, is_below_safety_stock: BOOLEAN, inventory_cover_days: FLOAT, safety_stock_units: INTEGER, avg_daily_demand_units: INTEGER, kpi_id: STRING, threshold_breached: BOOLEAN, value: FLOAT, promised_arrival_date: STRING, lead_time_days_actual: INTEGER, quantity_received: INTEGER, quantity_ordered: INTEGER, order_date: STRING, lead_time_days_planned: INTEGER, actual_arrival_date: STRING, delay_days: INTEGER, supplier_id: STRING, status: STRING, quantity_shipped: INTEGER, actual_delivery_date: STRING, otif_flag: BOOLEAN, promised_delivery_date: STRING, customer_id: STRING, perfect_order_flag: BOOLEAN}
+KPI {id: STRING, label: STRING, name: STRING, ontology_version: STRING, description: STRING, source_file: STRING, updated_at: DATE_TIME, directionality: STRING, gold_table: STRING, outcome_column: STRING}
+SKU {id: STRING, label: STRING, name: STRING, ontology_version: STRING, description: STRING, source_file: STRING, updated_at: DATE_TIME, category: STRING}
+DistributionCenter {id: STRING, label: STRING, name: STRING, ontology_version: STRING, description: STRING, source_file: STRING, updated_at: DATE_TIME, country: STRING, region: STRING}
+Supplier {id: STRING, label: STRING, name: STRING, ontology_version: STRING, description: STRING, source_file: STRING, updated_at: DATE_TIME, category: STRING, tier: INTEGER, country_of_origin: STRING, is_backup: BOOLEAN}
+CausalDriver {id: STRING, label: STRING, name: STRING, ontology_version: STRING, description: STRING, rca_relevance: STRING, domain: STRING, source_file: STRING, updated_at: DATE_TIME}
+CausalMediator {id: STRING, label: STRING, name: STRING, ontology_version: STRING, description: STRING, source_file: STRING, updated_at: DATE_TIME}
+Intervention {id: STRING, label: STRING, name: STRING, ontology_version: STRING, description: STRING, source_file: STRING, updated_at: DATE_TIME, action_owner: STRING, approval_required: BOOLEAN, lead_time_days: INTEGER}
+GoldTable {id: STRING, label: STRING, name: STRING, ontology_version: STRING, description: STRING, source_file: STRING, updated_at: DATE_TIME, schema: STRING, catalog: STRING, grain: STRING}
+RiskNode {id: STRING, label: STRING, name: STRING, ontology_version: STRING, description: STRING, source_file: STRING, updated_at: DATE_TIME, risk_category: STRING, regulation: STRING, impact_horizon_days: INTEGER}
+Carrier {id: STRING, label: STRING, name: STRING, ontology_version: STRING, source_file: STRING, updated_at: DATE_TIME, mode: STRING, reliability_score: FLOAT}
+Port {id: STRING, label: STRING, name: STRING, ontology_version: STRING, source_file: STRING, updated_at: DATE_TIME, country: STRING, risk_level: STRING, avg_dwell_days: FLOAT}
+TransportLane {id: STRING, label: STRING, name: STRING, ontology_version: STRING, source_file: STRING, updated_at: DATE_TIME, mode: STRING, origin_port: STRING, is_primary: BOOLEAN, avg_transit_days: INTEGER, destination_dc: STRING, cost_premium_pct: INTEGER}
+IntermediateFactor {id: STRING, label: STRING, name: STRING, ontology_version: STRING, description: STRING, source_file: STRING, updated_at: DATE_TIME}
+ComplianceRequirement {id: STRING, label: STRING, name: STRING, ontology_version: STRING, description: STRING, source_file: STRING, updated_at: DATE_TIME, risk_category: STRING, regulation: STRING}
+DemandRisk {id: STRING, label: STRING, name: STRING, ontology_version: STRING, description: STRING, source_file: STRING, updated_at: DATE_TIME, risk_category: STRING}
+GeopoliticalRisk {id: STRING, label: STRING, name: STRING, ontology_version: STRING, description: STRING, source_file: STRING, updated_at: DATE_TIME, risk_category: STRING, impact_horizon_days: INTEGER}
+LogisticsRisk {id: STRING, label: STRING, name: STRING, ontology_version: STRING, description: STRING, source_file: STRING, updated_at: DATE_TIME, risk_category: STRING}
+SupplyRisk {id: STRING, label: STRING, name: STRING, ontology_version: STRING, description: STRING, source_file: STRING, updated_at: DATE_TIME, risk_category: STRING}
+Customer {id: STRING, label: STRING, name: STRING, ontology_version: STRING, description: STRING, source_file: STRING, updated_at: DATE_TIME, region: STRING, tier: STRING, channel: STRING}
+PurchaseOrder {id: STRING, label: STRING, name: STRING, ontology_version: STRING, description: STRING, source_file: STRING, updated_at: DATE_TIME, sku_id: STRING, dc_id: STRING, promised_arrival_date: STRING, lead_time_days_actual: INTEGER, quantity_received: INTEGER, quantity_ordered: INTEGER, order_date: STRING, lead_time_days_planned: INTEGER, actual_arrival_date: STRING, delay_days: INTEGER, supplier_id: STRING, status: STRING}
+InventorySnapshot {id: STRING, label: STRING, name: STRING, ontology_version: STRING, description: STRING, source_file: STRING, updated_at: DATE_TIME, grain: STRING, date: STRING, sku_id: STRING, dc_id: STRING, on_hand_units: INTEGER, is_below_safety_stock: BOOLEAN, inventory_cover_days: FLOAT, safety_stock_units: INTEGER, avg_daily_demand_units: INTEGER}
+DemandForecastSnapshot {id: STRING, label: STRING, name: STRING, ontology_version: STRING, description: STRING, source_file: STRING, updated_at: DATE_TIME, grain: STRING, date: STRING, bias_direction: STRING, sku_id: STRING, dc_id: STRING, forecast_error_pct: FLOAT, forecast_units: INTEGER, promotion_flag: BOOLEAN, actual_demand_units: INTEGER}
+Shipment {id: STRING, label: STRING, name: STRING, ontology_version: STRING, description: STRING, source_file: STRING, updated_at: DATE_TIME, grain: STRING, sku_id: STRING, dc_id: STRING, quantity_ordered: INTEGER, order_date: STRING, quantity_shipped: INTEGER, actual_delivery_date: STRING, otif_flag: BOOLEAN, promised_delivery_date: STRING, customer_id: STRING, perfect_order_flag: BOOLEAN}
+KPIObservation {id: STRING, label: STRING, name: STRING, ontology_version: STRING, description: STRING, source_file: STRING, updated_at: DATE_TIME, grain: STRING, date: STRING, sku_id: STRING, dc_id: STRING, kpi_id: STRING, threshold_breached: BOOLEAN, value: FLOAT}
+InstanceRecord {id: STRING, label: STRING, name: STRING, ontology_version: STRING, description: STRING, source_file: STRING, updated_at: DATE_TIME, grain: STRING, date: STRING, bias_direction: STRING, sku_id: STRING, dc_id: STRING, forecast_error_pct: FLOAT, forecast_units: INTEGER, promotion_flag: BOOLEAN, actual_demand_units: INTEGER, on_hand_units: INTEGER, is_below_safety_stock: BOOLEAN, inventory_cover_days: FLOAT, safety_stock_units: INTEGER, avg_daily_demand_units: INTEGER, kpi_id: STRING, threshold_breached: BOOLEAN, value: FLOAT, promised_arrival_date: STRING, lead_time_days_actual: INTEGER, quantity_received: INTEGER, quantity_ordered: INTEGER, order_date: STRING, lead_time_days_planned: INTEGER, actual_arrival_date: STRING, delay_days: INTEGER, supplier_id: STRING, status: STRING, quantity_shipped: INTEGER, actual_delivery_date: STRING, otif_flag: BOOLEAN, promised_delivery_date: STRING, customer_id: STRING, perfect_order_flag: BOOLEAN}
+Relationship properties:
+CAUSES {id: STRING, ontology_version: STRING, source_file: STRING, updated_at: DATE_TIME, lag_days_max: INTEGER, applicable_kpis: LIST, evidence_type: STRING, confidence: FLOAT, source: STRING, lag_days_min: INTEGER, target: STRING, ate_ci_lower: FLOAT, ate_ci_upper: FLOAT, ate_estimate: FLOAT, is_validated: BOOLEAN, provenance: STRING, applicable_grains: LIST}
+CONTRIBUTES_TO {id: STRING, ontology_version: STRING, source_file: STRING, updated_at: DATE_TIME, applicable_kpis: LIST, evidence_type: STRING, confidence: FLOAT, source: STRING, target: STRING, is_validated: BOOLEAN}
+MITIGATES {id: STRING, ontology_version: STRING, source_file: STRING, updated_at: DATE_TIME, source: STRING, target: STRING}
+SHIPS_TO {id: STRING, ontology_version: STRING, source_file: STRING, updated_at: DATE_TIME, source: STRING, target: STRING}
+STORED_AT {id: STRING, ontology_version: STRING, source_file: STRING, updated_at: DATE_TIME, source: STRING, target: STRING}
+SUPPLIED_BY {id: STRING, ontology_version: STRING, source_file: STRING, updated_at: DATE_TIME, source: STRING, target: STRING}
+SUPPLIES_TO {id: STRING, ontology_version: STRING, source_file: STRING, updated_at: DATE_TIME, source: STRING, target: STRING}
+AT_DC {id: STRING, ontology_version: STRING, source_file: STRING, updated_at: DATE_TIME, source: STRING, target: STRING}
+EVIDENCES {id: STRING, ontology_version: STRING, source_file: STRING, updated_at: DATE_TIME, evidence_type: STRING, confidence: FLOAT, source: STRING, target: STRING, date: STRING, severity: STRING, observed_value: FLOAT, source_record_id: STRING, threshold_value: FLOAT, source_table: STRING}
+FOR_SKU {id: STRING, ontology_version: STRING, source_file: STRING, updated_at: DATE_TIME, source: STRING, target: STRING}
+FROM_SUPPLIER {id: STRING, ontology_version: STRING, source_file: STRING, updated_at: DATE_TIME, source: STRING, target: STRING}
+OBSERVES_KPI {id: STRING, ontology_version: STRING, source_file: STRING, updated_at: DATE_TIME, source: STRING, target: STRING}
+TO_CUSTOMER {id: STRING, ontology_version: STRING, source_file: STRING, updated_at: DATE_TIME, source: STRING, target: STRING}
+The relationships:
+(:GraphNode)-[:CAUSES]->(:GraphNode)
+(:GraphNode)-[:CAUSES]->(:CausalDriver)
+(:GraphNode)-[:CAUSES]->(:CausalMediator)
+(:GraphNode)-[:CAUSES]->(:IntermediateFactor)
+(:GraphNode)-[:CAUSES]->(:KPI)
+(:GraphNode)-[:CONTRIBUTES_TO]->(:GraphNode)
+(:GraphNode)-[:CONTRIBUTES_TO]->(:CausalDriver)
+(:GraphNode)-[:MITIGATES]->(:GraphNode)
+(:GraphNode)-[:MITIGATES]->(:CausalDriver)
+(:GraphNode)-[:MITIGATES]->(:CausalMediator)
+(:GraphNode)-[:MITIGATES]->(:IntermediateFactor)
+(:GraphNode)-[:STORED_AT]->(:GraphNode)
+(:GraphNode)-[:STORED_AT]->(:DistributionCenter)
+(:GraphNode)-[:SUPPLIED_BY]->(:GraphNode)
+(:GraphNode)-[:SUPPLIED_BY]->(:Supplier)
+(:GraphNode)-[:SHIPS_TO]->(:GraphNode)
+(:GraphNode)-[:SHIPS_TO]->(:DistributionCenter)
+(:GraphNode)-[:SUPPLIES_TO]->(:GraphNode)
+(:GraphNode)-[:SUPPLIES_TO]->(:Supplier)
+(:GraphNode)-[:AT_DC]->(:GraphNode)
+(:GraphNode)-[:AT_DC]->(:DistributionCenter)
+(:GraphNode)-[:FOR_SKU]->(:GraphNode)
+(:GraphNode)-[:FOR_SKU]->(:SKU)
+(:GraphNode)-[:EVIDENCES]->(:GraphNode)
+(:GraphNode)-[:EVIDENCES]->(:CausalDriver)
+(:GraphNode)-[:EVIDENCES]->(:CausalMediator)
+(:GraphNode)-[:EVIDENCES]->(:IntermediateFactor)
+(:GraphNode)-[:OBSERVES_KPI]->(:GraphNode)
+(:GraphNode)-[:OBSERVES_KPI]->(:KPI)
+(:GraphNode)-[:FROM_SUPPLIER]->(:GraphNode)
+(:GraphNode)-[:FROM_SUPPLIER]->(:Supplier)
+(:GraphNode)-[:TO_CUSTOMER]->(:GraphNode)
+(:GraphNode)-[:TO_CUSTOMER]->(:Customer)
+(:SKU)-[:STORED_AT]->(:GraphNode)
+(:SKU)-[:STORED_AT]->(:DistributionCenter)
+(:SKU)-[:SUPPLIED_BY]->(:GraphNode)
+(:SKU)-[:SUPPLIED_BY]->(:Supplier)
+(:Supplier)-[:SHIPS_TO]->(:GraphNode)
+(:Supplier)-[:SHIPS_TO]->(:DistributionCenter)
+(:Supplier)-[:SUPPLIES_TO]->(:GraphNode)
+(:Supplier)-[:SUPPLIES_TO]->(:Supplier)
+(:CausalDriver)-[:CAUSES]->(:GraphNode)
+(:CausalDriver)-[:CAUSES]->(:CausalDriver)
+(:CausalDriver)-[:CAUSES]->(:CausalMediator)
+(:CausalDriver)-[:CAUSES]->(:IntermediateFactor)
+(:CausalDriver)-[:CAUSES]->(:KPI)
+(:CausalDriver)-[:CONTRIBUTES_TO]->(:GraphNode)
+(:CausalDriver)-[:CONTRIBUTES_TO]->(:CausalDriver)
+(:CausalMediator)-[:CAUSES]->(:GraphNode)
+(:CausalMediator)-[:CAUSES]->(:CausalMediator)
+(:CausalMediator)-[:CAUSES]->(:IntermediateFactor)
+(:CausalMediator)-[:CAUSES]->(:KPI)
+(:Intervention)-[:MITIGATES]->(:GraphNode)
+(:Intervention)-[:MITIGATES]->(:CausalDriver)
+(:Intervention)-[:MITIGATES]->(:CausalMediator)
+(:Intervention)-[:MITIGATES]->(:IntermediateFactor)
+(:IntermediateFactor)-[:CAUSES]->(:GraphNode)
+(:IntermediateFactor)-[:CAUSES]->(:CausalMediator)
+(:IntermediateFactor)-[:CAUSES]->(:IntermediateFactor)
+(:IntermediateFactor)-[:CAUSES]->(:KPI)
+(:PurchaseOrder)-[:AT_DC]->(:GraphNode)
+(:PurchaseOrder)-[:AT_DC]->(:DistributionCenter)
+(:PurchaseOrder)-[:FOR_SKU]->(:GraphNode)
+(:PurchaseOrder)-[:FOR_SKU]->(:SKU)
+(:PurchaseOrder)-[:FROM_SUPPLIER]->(:GraphNode)
+(:PurchaseOrder)-[:FROM_SUPPLIER]->(:Supplier)
+(:PurchaseOrder)-[:EVIDENCES]->(:GraphNode)
+(:PurchaseOrder)-[:EVIDENCES]->(:CausalDriver)
+(:InventorySnapshot)-[:AT_DC]->(:GraphNode)
+(:InventorySnapshot)-[:AT_DC]->(:DistributionCenter)
+(:InventorySnapshot)-[:FOR_SKU]->(:GraphNode)
+(:InventorySnapshot)-[:FOR_SKU]->(:SKU)
+(:InventorySnapshot)-[:EVIDENCES]->(:GraphNode)
+(:InventorySnapshot)-[:EVIDENCES]->(:CausalMediator)
+(:InventorySnapshot)-[:EVIDENCES]->(:IntermediateFactor)
+(:DemandForecastSnapshot)-[:AT_DC]->(:GraphNode)
+(:DemandForecastSnapshot)-[:AT_DC]->(:DistributionCenter)
+(:DemandForecastSnapshot)-[:FOR_SKU]->(:GraphNode)
+(:DemandForecastSnapshot)-[:FOR_SKU]->(:SKU)
+(:DemandForecastSnapshot)-[:EVIDENCES]->(:GraphNode)
+(:DemandForecastSnapshot)-[:EVIDENCES]->(:CausalDriver)
+(:Shipment)-[:AT_DC]->(:GraphNode)
+(:Shipment)-[:AT_DC]->(:DistributionCenter)
+(:Shipment)-[:TO_CUSTOMER]->(:GraphNode)
+(:Shipment)-[:TO_CUSTOMER]->(:Customer)
+(:Shipment)-[:FOR_SKU]->(:GraphNode)
+(:Shipment)-[:FOR_SKU]->(:SKU)
+(:KPIObservation)-[:AT_DC]->(:GraphNode)
+(:KPIObservation)-[:AT_DC]->(:DistributionCenter)
+(:KPIObservation)-[:FOR_SKU]->(:GraphNode)
+(:KPIObservation)-[:FOR_SKU]->(:SKU)
+(:KPIObservation)-[:OBSERVES_KPI]->(:GraphNode)
+(:KPIObservation)-[:OBSERVES_KPI]->(:KPI)
+(:InstanceRecord)-[:AT_DC]->(:GraphNode)
+(:InstanceRecord)-[:AT_DC]->(:DistributionCenter)
+(:InstanceRecord)-[:FOR_SKU]->(:GraphNode)
+(:InstanceRecord)-[:FOR_SKU]->(:SKU)
+(:InstanceRecord)-[:EVIDENCES]->(:GraphNode)
+(:InstanceRecord)-[:EVIDENCES]->(:CausalDriver)
+(:InstanceRecord)-[:EVIDENCES]->(:CausalMediator)
+(:InstanceRecord)-[:EVIDENCES]->(:IntermediateFactor)
+(:InstanceRecord)-[:OBSERVES_KPI]->(:GraphNode)
+(:InstanceRecord)-[:OBSERVES_KPI]->(:KPI)
+(:InstanceRecord)-[:FROM_SUPPLIER]->(:GraphNode)
+(:InstanceRecord)-[:FROM_SUPPLIER]->(:Supplier)
+(:InstanceRecord)-[:TO_CUSTOMER]->(:GraphNode)
+(:InstanceRecord)-[:TO_CUSTOMER]->(:Customer)
+
+GRAPHRAG CONTEXT RETRIEVED (few-shot examples passed to the LLM):
+  - USER INPUT: 'Which suppliers ship to DC_EAST?' QUERY: MATCH (s:Supplier)-[:SHIPS_TO]->(dc:DistributionCenter {id: 'DC_EAST'}) RETURN s.id, s.name, s.tier
+  - USER INPUT: 'List all interventions that do not require approval.' QUERY: MATCH (i:Intervention {approval_required: false}) RETURN i.id, i.name, i.action_owner, i.lead_time_days
+  - USER INPUT: 'Which causal drivers can eventually lead to an increase in stockout_rate?' QUERY: MATCH (d:CausalDriver)-[:CAUSES|CONTRIBUTES_TO*1..5]->(k:KPI {id: 'stockout_rate'}) RETURN DISTINCT d.id, d.name
+  - USER INPUT: 'What interventions mitigate supplier lead time delay?' QUERY: MATCH (i:Intervention)-[:MITIGATES]->(d {id: 'supplier_lead_time_delay'}) RETURN i.id, i.name, i.approval_required, i.action_owner
+  - USER INPUT: 'Which purchase orders were delayed by more than 5 days?' QUERY: MATCH (po:PurchaseOrder) WHERE po.delay_days > 5 RETURN po.id, po.sku_id, po.supplier_id, po.delay_days ORDER BY po.delay_days DESC
+  - USER INPUT: 'How many inventory snapshots for SKU_1002 were below safety stock?' QUERY: MATCH (inv:InventorySnapshot {sku_id: 'SKU_1002', is_below_safety_stock: true}) RETURN count(inv) AS below_safety_stock_count
+  - USER INPUT: 'Show evidence records supporting the port_congestion driver, most recent first.' QUERY: MATCH (e)-[:EVIDENCES]->(d:CausalDriver {id: 'port_congestion'}) RETURN e.id, e.evidence_type, e.severity, e.confidence, e.date ORDER BY e.date DESC
+  - USER INPUT: 'What is the average forecast error percentage for SKU_1001 at DC_WEST?' QUERY: MATCH (f:DemandForecastSnapshot {sku_id: 'SKU_1001', dc_id: 'DC_WEST'}) RETURN avg(f.forecast_error_pct) AS avg_forecast_error_pct
+  - USER INPUT: 'List every KPI and its directionality.' QUERY: MATCH (k:KPI) RETURN k.id, k.name, k.directionality
+  - USER INPUT: 'Which SKUs are stored at more than one distribution center?' QUERY: MATCH (s:SKU)-[:STORED_AT]->(dc:DistributionCenter) WITH s, count(dc) AS dc_count WHERE dc_count > 1 RETURN s.id, dc_count
+  - USER INPUT: 'Which ports have a high risk level?' QUERY: MATCH (p:Port {risk_level: 'high'}) RETURN p.id, p.name, p.country, p.avg_dwell_days
+  - USER INPUT: 'List transport lanes that are not the primary lane.' QUERY: MATCH (l:TransportLane {is_primary: false}) RETURN l.id, l.name, l.origin_port, l.destination_dc, l.mode, l.cost_premium_pct
+  - USER INPUT: 'Show inventory snapshots for SKU_1002 at DC_EAST from the last 14 days.' QUERY: MATCH (i:InventorySnapshot {sku_id: 'SKU_1002', dc_id: 'DC_EAST'}) WHERE date(i.date) >= date() - duration('P14D') RETURN i.id, i.date, i.on_hand_units, i.inventory_cover_days, i.is_below_safety_stock ORDER BY i.date DESC
+  - USER INPUT: 'What was the average forecast error for SKU_1001 at DC_WEST over the last 30 days?' QUERY: MATCH (f:DemandForecastSnapshot {sku_id: 'SKU_1001', dc_id: 'DC_WEST'}) WHERE date(f.date) >= date() - duration('P30D') RETURN avg(f.forecast_error_pct) AS avg_forecast_error_pct
+  - USER INPUT: 'How did fill_rate change for SKU_1001 at DC_WEST over the last 30 days?' QUERY: MATCH (o:KPIObservation {sku_id: 'SKU_1001', dc_id: 'DC_WEST', kpi_id: 'fill_rate'}) WHERE date(o.date) >= date() - duration('P30D') RETURN o.date, o.value, o.threshold_breached ORDER BY o.date DESC
+  - USER INPUT: 'Which distribution centers have low on-time in-full delivery?' QUERY: MATCH (o:KPIObservation {kpi_id: 'otifd', threshold_breached: true}) RETURN DISTINCT o.dc_id, o.sku_id, o.date, o.value ORDER BY o.date DESC
+  - USER INPUT: 'Show evidence of supplier delay affecting DC_EAST in the last 60 days.' QUERY: MATCH (e)-[ev:EVIDENCES {evidence_type: 'supplier_delay'}]->(d) WHERE date(ev.date) >= date() - duration('P60D') RETURN e.id, d.id AS driver, ev.severity, ev.observed_value, ev.threshold_value, ev.date ORDER BY ev.date DESC
+  - USER INPUT: 'Which shipments to DC_EAST were not on-time-in-full in the last 21 days?' QUERY: MATCH (sh:Shipment {dc_id: 'DC_EAST', otif_flag: false}) WHERE date(sh.actual_delivery_date) >= date() - duration('P21D') RETURN sh.id, sh.sku_id, sh.customer_id, sh.promised_delivery_date, sh.actual_delivery_date ORDER BY sh.actual_delivery_date DESC
+
+GENERATED CYPHER:
+  MATCH (d:CausalDriver)-[:CAUSES|CONTRIBUTES_TO*1..5]->(k:KPI {id: 'stockout_rate'})<-[:FOR_SKU]-(s:SKU {id: 'SKU_1001'})<-[:STORED_AT]-(dc:DistributionCenter {id: 'DC_EAST'}) RETURN DISTINCT d.id, d.name, k.id, k.name
+
+RESULT (0 row(s)):
+[]
+
