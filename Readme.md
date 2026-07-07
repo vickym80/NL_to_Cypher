@@ -1,6 +1,6 @@
 # NL2Cypher POC — Implementation Doc
 
-**Status: implemented and live-tested against the running Neo4j instance and OpenAI provider.** This is the follow-through on `docs/nl2cypher_poc_plan.md` and `docs/neo4j_native_graphrag_text2cypher.md` (Phase 0 planning) into a working Phase 1 MVP, in the new `NL2Cypher/` folder — deliberately isolated from `graphrag_service/`, `rca_agent/`, and every other existing module. Every code sample, test result, and API response quoted below is real output from actually running this code, captured during implementation — nothing is a mocked example.
+**Status: implemented and live-tested against the running Neo4j instance and OpenAI provider.** This is the follow-through on `docs/nl2cypher_poc_plan.md` and `docs/neo4j_native_graphrag_text2cypher.md` (Phase 0 planning) into a working Phase 1 MVP, in the new `NL2Cypher/` folder — deliberately isolated from `graphrag_service/`, `rca_agent/`, and every other existing module. Every code sample, test result, and API response quoted below is real output from actually running this code, captured during implementation — nothing is a mocked example. The LLM factory also supports Azure OpenAI via `LLM_PROVIDER=azure_openai`.
 
 ## 1. Why do this at all — benefits over the existing template-based Cypher queries
 
@@ -41,7 +41,7 @@ Nothing in `graphrag_service/`, `rca_agent/`, `ui/`, or any other existing modul
 
 As scoped in `docs/neo4j_native_graphrag_text2cypher.md`, `neo4j_graphrag.retrievers.Text2CypherRetriever` (package version confirmed live: **1.18.0**, released 2026-06-24) provides, out of the box:
 
-- **Schema-aware prompting** — `neo4j_schema` is injected into the LLM prompt verbatim. `NL2CypherEngine` defaults to `schema_source="live"`, calling the library's own `get_schema(driver)` on every startup so the LLM always sees the schema exactly as it is in Neo4j right now (see §4e) — a hand-curated fallback string (`schema_context.py`, `schema_source="curated"`) is also available for environments without the APOC plugin or when a smaller prompt is preferred (see `docs/neo4j_native_graphrag_text2cypher.md` §5 for that tradeoff).
+- **Schema-aware prompting** — `neo4j_schema` is injected into the LLM prompt verbatim. **Superseded:** the `schema_source="curated"` vs. `"live"` toggle described in §4e below (and the hand-curated `ONTOLOGY_SCHEMA`/`INSTANCE_DATA_SCHEMA` strings it referred to) no longer exists — `schema_context.py` now always derives the schema live, including low-cardinality property *values* (e.g. the valid `KPI.id` set), renders it into the same compact shape, and caches it with a TTL (`NL2CypherEngine.refresh_schema()` forces an immediate re-fetch). See the docstring at the top of `schema_context.py` for the current design and rationale; §4e/§4f below are kept as historical record of the bugs that motivated the change, not as current behavior.
 - **Few-shot examples** — `examples: list[str]`, formatted `"USER INPUT: '...' QUERY: ..."`, joined into the prompt. Ten examples were hand-written against the *real* schema (verified correct by actually running each one — see §4) and deliberately include the ontology's distinctive variable-length causal pattern (`[:CAUSES|CONTRIBUTES_TO*1..5]`), since that's the one pattern a generic few-shot set wouldn't demonstrate.
 - **Built-in read-only enforcement** — confirmed live in §5 below: the retriever inspects the generated query's type and refuses to execute anything that isn't read-only, raising `Text2CypherRetrievalError`.
 - **Custom result formatting** — `result_formatter=_record_to_item` in `engine.py` converts each `neo4j.Record` to a plain dict (`record.data()`) instead of the library's default `str(record)`, so results are directly JSON-serializable for the API/UI.
@@ -125,6 +125,8 @@ $ curl -X POST http://localhost:9060/nl2cypher/query \
 ```
 
 ## 4e. Live schema introspection — confirmed working once APOC was installed, and it caught a real gap
+
+> **Superseded** — this section documents the bugs (curated-schema drift, noisy live `get_schema()` output) that motivated replacing the curated/live toggle entirely. `schema_context.py` now always derives schema live via `neo4j_graphrag.schema.get_structured_schema(..., is_enhanced=True)`, renders it into a compact custom format (filtering out generic base-label noise like `GraphNode`/`InstanceRecord`), and includes property-value enums. See that file's docstring for the current design.
 
 `neo4j_graphrag.schema.get_schema(driver)` is the library's built-in live-introspection function (`Text2CypherRetriever` calls it automatically whenever `neo4j_schema` isn't passed in). It depends on the **APOC** plugin (`apoc.meta.data`, `apoc.schema.nodes`) with no pure-Cypher fallback. The first attempt against this environment's Neo4j Desktop instance failed:
 
@@ -219,16 +221,17 @@ The LLM *did* generate a syntactically valid `DELETE` query for this prompt — 
 
 ## 6. Configuration
 
-Reuses the existing root `.env` — no new environment variables were introduced:
+Configuration is read from the existing root `.env`; Azure OpenAI adds an optional provider-specific block:
 
 | Setting | Source | Used for |
 |---|---|---|
 | `NEO4J_URI` / `NEO4J_USER` / `NEO4J_PASSWORD` / `NEO4J_DATABASE` | `config/settings.py` `Settings.neo4j_*` | `engine.py`'s `neo4j.GraphDatabase.driver(...)` call |
-| `LLM_PROVIDER` (`openai`/`claude`) | `Settings.llm_provider` | `llm_provider.py`'s branch between `OpenAILLM`/`AnthropicLLM` |
+| `LLM_PROVIDER` (`openai`/`azure_openai`/`claude`) | `Settings.llm_provider` | `llm_provider.py`'s branch between `OpenAILLM`/`AzureOpenAILLM`/`AnthropicLLM` |
 | `OPENAI_API_KEY` / `OPENAI_MODEL` | `Settings.openai_*` | Passed straight through to `neo4j_graphrag.llm.OpenAILLM(model_name=..., api_key=...)` |
+| `AZURE_OPENAI_API_KEY` / `AZURE_OPENAI_ENDPOINT` / `AZURE_OPENAI_API_VERSION` / `AZURE_OPENAI_DEPLOYMENT` | `Settings.azure_openai_*` | Passed to `neo4j_graphrag.llm.AzureOpenAILLM`; the deployment name is used as `model_name` for Azure chat completions |
 | `ANTHROPIC_API_KEY` / `ANTHROPIC_MODEL` | `Settings.anthropic_*` | Same, for `AnthropicLLM` |
 
-`llm_provider.py` deliberately does **not** call `llm_service.llm_factory.get_llm_client()` — that factory returns clients implementing this repo's own `LLMClient` Protocol (`llm_service/base_client.py`), a different interface than `neo4j_graphrag.llm.LLMInterface`. Both read the same `.env` values through the same `Settings` class, so the two stay consistent without being coupled — no adapter/shim was needed, since `neo4j_graphrag` ships its own equally-thin `OpenAILLM`/`AnthropicLLM` wrappers around the same underlying SDKs (`openai`, `anthropic`) already in `requirements/base.txt`.
+`llm_provider.py` deliberately does **not** call `llm_service.llm_factory.get_llm_client()` — that factory returns clients implementing this repo's own `LLMClient` Protocol (`llm_service/base_client.py`), a different interface than `neo4j_graphrag.llm.LLMInterface`. Both read the same `.env` values through the same `Settings` class, so the two stay consistent without being coupled — no adapter/shim was needed, since `neo4j_graphrag` ships thin `OpenAILLM`/`AzureOpenAILLM`/`AnthropicLLM` wrappers around the same underlying SDKs (`openai`, `anthropic`) already in `requirements/base.txt`.
 
 To run this yourself: `./start_nl2cypher.sh` (port 9060) or `python -m NL2Cypher.cli "<question>"` — beyond what `start_backend.sh` already requires (`.env`, `.venv`, live Neo4j), the default `schema_source="live"` also requires the **APOC plugin** enabled on that Neo4j instance. If APOC isn't available, either install it or pass `schema_source="curated"` (`--curated-schema` on the CLI, or `NL2CypherEngine(schema_source="curated")` in code).
 

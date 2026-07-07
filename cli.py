@@ -2,12 +2,14 @@
 
 Every run is appended to NL2Cypher/results/nl2cypher_log.txt (NL query, the
 GraphRAG context retrieved, the generated Cypher, and the result) unless
---no-save is passed. Schema defaults to a LIVE fetch from Neo4j (requires APOC);
-pass --curated-schema to use the hand-written schema_context.py instead.
+--no-save is passed. Schema is always derived live from Neo4j (requires APOC —
+see schema_context.py) and cached for settings.schema_cache_ttl_seconds; pass
+--refresh-schema to bypass that cache and re-introspect right now (e.g. right
+after changing the graph).
 
 Usage:
     python -m NL2Cypher.cli "Which suppliers ship to DC_EAST?"
-    python -m NL2Cypher.cli --curated-schema "Which suppliers ship to DC_EAST?"
+    python -m NL2Cypher.cli --refresh-schema "Which suppliers ship to DC_EAST?"
     python -m NL2Cypher.cli --no-save "Which suppliers ship to DC_EAST?"
     python -m NL2Cypher.cli --save-to path/to/log.txt "..."
 """
@@ -26,14 +28,14 @@ def main() -> int:
     args = sys.argv[1:]
     save = True
     log_path = DEFAULT_LOG_PATH
-    schema_source = "live"
+    refresh_schema = False
 
     while args and args[0].startswith("--"):
         flag = args.pop(0)
         if flag == "--no-save":
             save = False
-        elif flag == "--curated-schema":
-            schema_source = "curated"
+        elif flag == "--refresh-schema":
+            refresh_schema = True
         elif flag == "--save-to":
             log_path = Path(args.pop(0))
         else:
@@ -42,14 +44,14 @@ def main() -> int:
 
     if not args:
         print(
-            'Usage: python -m NL2Cypher.cli ["--no-save"] ["--curated-schema"] '
+            'Usage: python -m NL2Cypher.cli ["--no-save"] ["--refresh-schema"] '
             '["--save-to <path>"] "<question>"',
             file=sys.stderr,
         )
         return 1
 
     question = " ".join(args)
-    with NL2CypherEngine(schema_source=schema_source) as engine:
+    with NL2CypherEngine(force_schema_refresh=refresh_schema) as engine:
         result = engine.ask(question)
 
     print(f"Question: {result.question}")

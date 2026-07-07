@@ -12,21 +12,18 @@ from __future__ import annotations
 
 import logging
 from dataclasses import dataclass, field
-from typing import Any, Literal
+from typing import Any
 
 import neo4j
 from neo4j_graphrag.exceptions import SchemaFetchError, Text2CypherRetrievalError
 from neo4j_graphrag.retrievers import Text2CypherRetriever
-from neo4j_graphrag.schema import get_schema as get_live_schema
 from neo4j_graphrag.types import RetrieverResultItem
 
 from config.settings import Settings, get_settings
 
 from .examples import NL2CYPHER_EXAMPLES
 from .llm_provider import build_llm
-from .schema_context import get_schema_context
-
-SchemaSource = Literal["curated", "live"]
+from .schema_context import filter_valid_examples, get_schema_model, render_schema_text
 
 logger = logging.getLogger(__name__)
 
@@ -57,17 +54,16 @@ class NL2CypherEngine:
     def __init__(
         self,
         settings: Settings | None = None,
-        include_instance_schema: bool = True,
-        schema_source: SchemaSource = "live",
+        schema_ttl_seconds: int | None = None,
+        force_schema_refresh: bool = False,
     ) -> None:
-        """schema_source="live" (default) fetches the schema straight from Neo4j via
-        neo4j_graphrag.schema.get_schema() on every engine startup — requires the
-        APOC plugin. schema_source="curated" uses the hand-written schema_context.py
-        string instead (works without APOC, smaller prompt, but can drift from the
-        live graph — see NL2Cypher/schema_diff.py to check for that)."""
+        """Schema is always derived live from Neo4j (see schema_context.py) —
+        cached in-process for schema_ttl_seconds (defaults to
+        settings.schema_cache_ttl_seconds) so a long-lived process doesn't
+        requery Neo4j on every question. Pass force_schema_refresh=True (or
+        call .refresh_schema() later) to bypass the cache and pick up a graph
+        change immediately."""
         self._settings = settings or get_settings()
-        self.schema_source = schema_source
-        self.examples = list(NL2CYPHER_EXAMPLES)
         self._driver = neo4j.GraphDatabase.driver(
             self._settings.neo4j_uri,
             auth=(
@@ -75,19 +71,24 @@ class NL2CypherEngine:
                 self._settings.neo4j_password.get_secret_value(),
             ),
         )
+        self._schema_ttl_seconds = (
+            schema_ttl_seconds if schema_ttl_seconds is not None else self._settings.schema_cache_ttl_seconds
+        )
 
-        if schema_source == "live":
-            try:
-                self.schema_context = get_live_schema(self._driver)
-            except Exception as exc:  # noqa: BLE001 - surface any APOC/driver failure clearly
-                self._driver.close()
-                raise RuntimeError(
-                    "Live schema fetch failed (requires the APOC plugin on this Neo4j "
-                    "instance). Pass schema_source='curated' to use the hand-written "
-                    f"schema instead. Underlying error: {exc}"
-                ) from exc
-        else:
-            self.schema_context = get_schema_context(include_instance_data=include_instance_schema)
+        try:
+            schema_model = get_schema_model(
+                self._driver,
+                database=self._settings.neo4j_database,
+                ttl_seconds=self._schema_ttl_seconds,
+                enum_max_cardinality=self._settings.schema_enum_max_cardinality,
+                force_refresh=force_schema_refresh,
+            )
+        except RuntimeError:
+            self._driver.close()
+            raise
+
+        self.schema_context = render_schema_text(schema_model)
+        self.examples = filter_valid_examples(list(NL2CYPHER_EXAMPLES), schema_model)
 
         self._llm = build_llm(self._settings)
         self._retriever = Text2CypherRetriever(
@@ -98,6 +99,25 @@ class NL2CypherEngine:
             result_formatter=_record_to_item,
             neo4j_database=self._settings.neo4j_database,
         )
+
+    def refresh_schema(self) -> None:
+        """Re-derive the schema + example set from Neo4j right now, bypassing
+        the TTL cache, and push them into the live retriever. Text2CypherRetriever
+        reads neo4j_schema/examples fresh on every .search() call (confirmed in
+        neo4j_graphrag's Text2CypherRetriever.get_search_results), so mutating
+        these attributes takes effect on the very next ask() — no need to rebuild
+        the driver, LLM, or retriever."""
+        schema_model = get_schema_model(
+            self._driver,
+            database=self._settings.neo4j_database,
+            ttl_seconds=self._schema_ttl_seconds,
+            enum_max_cardinality=self._settings.schema_enum_max_cardinality,
+            force_refresh=True,
+        )
+        self.schema_context = render_schema_text(schema_model)
+        self.examples = filter_valid_examples(list(NL2CYPHER_EXAMPLES), schema_model)
+        self._retriever.neo4j_schema = self.schema_context
+        self._retriever.examples = self.examples
 
     def ask(self, question: str, max_rows: int = 100) -> NL2CypherResult:
         try:

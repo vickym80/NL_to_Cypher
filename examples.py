@@ -8,6 +8,22 @@ pattern, which a generic few-shot set (e.g. a movie-graph example) would not cov
 
 Format matches neo4j_graphrag.retrievers.Text2CypherRetriever's expected shape:
 one string per example, "USER INPUT: '<question>' QUERY: <cypher>".
+
+Note: the "IMPORTANT: ..." lines above several examples below are Python `#`
+comments — the interpreter strips them before this list is built, so the LLM
+never actually sees that reasoning at runtime, only the bare NL/Cypher pair.
+The enum/gotcha facts they describe (valid KPI.id values, valid evidence_type
+values, date properties being STRING not DATE) are now derived live and
+rendered directly into the schema text instead (see schema_context.py's
+enum-value sampling and auto-generated Notes) — that's what the LLM actually
+sees, and it stays correct as the graph changes. The comments here are kept
+only as documentation for future editors of this file.
+
+Engine startup also runs every example here through
+schema_context.filter_valid_examples() against the live schema, dropping any
+example that references a label/relationship type no longer present in the
+graph, so a schema change can't leave a stale example actively teaching the
+LLM a wrong pattern.
 """
 
 from __future__ import annotations
