@@ -1,0 +1,33 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment files
+.env
+.env.*
+*.log
+
+# macOS
+.DS_Store
+
+# Node dependencies
+node_modules/
+ui/node_modules/
+shared/ui/node_modules/
+
+# Next.js build files
+.next/
+ui/.next/
+shared/ui/.next/
+
+# Build outputs
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
