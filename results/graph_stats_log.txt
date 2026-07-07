@@ -1,0 +1,59 @@
+====================================================================================================
+Timestamp: 2026-07-07T18:17:55.914060+00:00
+Database: neo4j
+
+Total nodes:
+  MATCH (n) RETURN count(n) AS total_nodes
+  {'total_nodes': 686}
+
+Total relationships:
+  MATCH ()-[r]->() RETURN count(r) AS total_relationships
+  {'total_relationships': 1507}
+
+Node count by label:
+  MATCH (n) UNWIND labels(n) AS label RETURN label, count(*) AS node_count ORDER BY node_count DESC
+  {'label': 'GraphNode', 'node_count': 686}
+  {'label': 'InstanceRecord', 'node_count': 507}
+  {'label': 'KPIObservation', 'node_count': 106}
+  {'label': 'InventorySnapshot', 'node_count': 101}
+  {'label': 'Customer', 'node_count': 100}
+  {'label': 'DemandForecastSnapshot', 'node_count': 100}
+  {'label': 'PurchaseOrder', 'node_count': 100}
+  {'label': 'Shipment', 'node_count': 100}
+  {'label': 'ForecastProjection', 'node_count': 24}
+  {'label': 'CausalDriver', 'node_count': 11}
+  {'label': 'Intervention', 'node_count': 8}
+  {'label': 'KPI', 'node_count': 6}
+  {'label': 'GoldTable', 'node_count': 5}
+  {'label': 'CausalMediator', 'node_count': 5}
+  {'label': 'IntermediateFactor', 'node_count': 5}
+  {'label': 'RiskNode', 'node_count': 5}
+  {'label': 'Supplier', 'node_count': 3}
+  {'label': 'Carrier', 'node_count': 3}
+  {'label': 'Port', 'node_count': 3}
+  {'label': 'DistributionCenter', 'node_count': 2}
+  {'label': 'SKU', 'node_count': 2}
+  {'label': 'TransportLane', 'node_count': 2}
+  {'label': 'ComplianceRequirement', 'node_count': 1}
+  {'label': 'DemandRisk', 'node_count': 1}
+  {'label': 'GeopoliticalRisk', 'node_count': 1}
+  {'label': 'LogisticsRisk', 'node_count': 1}
+  {'label': 'SupplyRisk', 'node_count': 1}
+
+Relationship count by type:
+  MATCH ()-[r]->() RETURN type(r) AS relationship_type, count(*) AS relationship_count ORDER BY relationship_count DESC
+  {'relationship_type': 'AT_DC', 'relationship_count': 531}
+  {'relationship_type': 'FOR_SKU', 'relationship_count': 531}
+  {'relationship_type': 'OBSERVES_KPI', 'relationship_count': 106}
+  {'relationship_type': 'FROM_SUPPLIER', 'relationship_count': 100}
+  {'relationship_type': 'TO_CUSTOMER', 'relationship_count': 100}
+  {'relationship_type': 'EVIDENCES', 'relationship_count': 73}
+  {'relationship_type': 'FOR_DRIVER', 'relationship_count': 24}
+  {'relationship_type': 'CAUSES', 'relationship_count': 20}
+  {'relationship_type': 'MITIGATES', 'relationship_count': 11}
+  {'relationship_type': 'STORED_AT', 'relationship_count': 3}
+  {'relationship_type': 'SHIPS_TO', 'relationship_count': 3}
+  {'relationship_type': 'CONTRIBUTES_TO', 'relationship_count': 2}
+  {'relationship_type': 'SUPPLIED_BY', 'relationship_count': 2}
+  {'relationship_type': 'SUPPLIES_TO', 'relationship_count': 1}
+

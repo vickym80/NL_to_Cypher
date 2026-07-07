@@ -1,0 +1,944 @@
+====================================================================================================
+Timestamp: 2026-07-07T18:13:09.279376+00:00
+
+Labels: 27   Relationships: 14   Enum-annotated properties: 202
+
+ENUM VALUES SAMPLED LIVE (label.property: values):
+  - Carrier.id: ['Carrier_DHL', 'Carrier_Maersk', 'Carrier_UPS']
+  - Carrier.label: ['Carrier']
+  - Carrier.mode: ['air', 'ground', 'sea']
+  - Carrier.name: ['DHL Express', 'Maersk Line', 'UPS Supply Chain']
+  - Carrier.ontology_version: ['2.0.0']
+  - Carrier.source_file: ['logistics_network.yaml']
+  - CausalDriver.domain: ['commercial', 'compliance', 'logistics', 'planning', 'procurement', 'quality', 'warehousing']
+  - CausalDriver.label: ['CausalDriver']
+  - CausalDriver.ontology_version: ['2.0.0']
+  - CausalDriver.rca_relevance: ['high', 'medium']
+  - CausalDriver.source_file: ['nodes.yaml']
+  - CausalMediator.id: ['excess_inventory', 'inventory_depletion', 'low_dc_inventory', 'low_inventory_cover', 'replenishment_delay']
+  - CausalMediator.label: ['IntermediateFactor']
+  - CausalMediator.name: ['Excess Inventory', 'Inventory Depletion', 'Low DC Inventory', 'Low Inventory Cover', 'Replenishment Delay']
+  - CausalMediator.ontology_version: ['2.0.0']
+  - CausalMediator.source_file: ['nodes.yaml']
+  - ComplianceRequirement.id: ['regulatory_compliance_risk']
+  - ComplianceRequirement.label: ['ComplianceRequirement']
+  - ComplianceRequirement.name: ['Regulatory Compliance Risk']
+  - ComplianceRequirement.ontology_version: ['2.0.0']
+  - ComplianceRequirement.regulation: ['multi_jurisdiction']
+  - ComplianceRequirement.risk_category: ['compliance']
+  - ComplianceRequirement.source_file: ['risk_taxonomy.yaml']
+  - Customer.channel: ['Ecommerce', 'Retail', 'Wholesale']
+  - Customer.label: ['Customer']
+  - Customer.ontology_version: ['2.0.0']
+  - Customer.region: ['Central', 'East', 'South', 'West']
+  - Customer.source_file: ['instance_nodes.yaml']
+  - Customer.tier: ['Bronze', 'Gold', 'Silver']
+  - DemandForecastSnapshot.bias_direction: ['none', 'over', 'under']
+  - DemandForecastSnapshot.dc_id: ['DC_EAST', 'DC_WEST']
+  - DemandForecastSnapshot.grain: ['sku_dc_day']
+  - DemandForecastSnapshot.label: ['DemandForecastSnapshot']
+  - DemandForecastSnapshot.ontology_version: ['2.0.0']
+  - DemandForecastSnapshot.sku_id: ['SKU_1001', 'SKU_1002']
+  - DemandForecastSnapshot.source_file: ['instance_nodes.yaml']
+  - DemandRisk.id: ['demand_volatility_risk']
+  - DemandRisk.label: ['DemandRisk']
+  - DemandRisk.name: ['Demand Volatility Risk']
+  - DemandRisk.ontology_version: ['2.0.0']
+  - DemandRisk.risk_category: ['commercial']
+  - DemandRisk.source_file: ['risk_taxonomy.yaml']
+  - DistributionCenter.country: ['US']
+  - DistributionCenter.id: ['DC_EAST', 'DC_WEST']
+  - DistributionCenter.label: ['DistributionCenter']
+  - DistributionCenter.name: ['East Distribution Center', 'West Distribution Center']
+  - DistributionCenter.ontology_version: ['2.0.0']
+  - DistributionCenter.region: ['East', 'West']
+  - DistributionCenter.source_file: ['nodes.yaml']
+  - ForecastProjection.as_of_date: ['2026-07-07']
+  - ForecastProjection.dc_id: ['DC_EAST', 'DC_WEST']
+  - ForecastProjection.driver_id: ['demand_spike', 'forecast_error', 'low_dc_inventory', 'supplier_lead_time_delay']
+  - ForecastProjection.forecast_method: ['naive_trend_projection']
+  - ForecastProjection.grain: ['sku_dc_driver_horizon']
+  - ForecastProjection.label: ['ForecastProjection']
+  - ForecastProjection.metric: ['dc_on_hand_units', 'demand_units', 'forecast_error_pct', 'supplier_lead_time_days']
+  - ForecastProjection.ontology_version: ['2.0.0']
+  - ForecastProjection.sku_id: ['SKU_1001', 'SKU_1002']
+  - ForecastProjection.source_file: ['forecast_projection_nodes.yaml']
+  - ForecastProjection.target_date: ['2026-07-14', '2026-07-21']
+  - GeopoliticalRisk.id: ['geopolitical_risk']
+  - GeopoliticalRisk.label: ['GeopoliticalRisk']
+  - GeopoliticalRisk.name: ['Geopolitical Risk']
+  - GeopoliticalRisk.ontology_version: ['2.0.0']
+  - GeopoliticalRisk.risk_category: ['external']
+  - GeopoliticalRisk.source_file: ['risk_taxonomy.yaml']
+  - GoldTable.catalog: ['supply_chain']
+  - GoldTable.grain: ['order_line_day', 'shipment_day', 'sku_dc_day', 'sku_supplier_day']
+  - GoldTable.label: ['GoldTable']
+  - GoldTable.ontology_version: ['2.0.0']
+  - GoldTable.schema: ['gold']
+  - GoldTable.source_file: ['nodes.yaml']
+  - GraphNode.action_owner: ['DC Operations', 'Demand Planning', 'Logistics', 'Procurement', 'Supply Planning']
+  - GraphNode.as_of_date: ['2026-07-07']
+  - GraphNode.bias_direction: ['none', 'over', 'under']
+  - GraphNode.catalog: ['supply_chain']
+  - GraphNode.category: ['Beverages', 'Finished Goods', 'Grocery', 'Raw Materials']
+  - GraphNode.channel: ['Ecommerce', 'Retail', 'Wholesale']
+  - GraphNode.country: ['CN', 'NL', 'US']
+  - GraphNode.country_of_origin: ['CN', 'IN', 'US']
+  - GraphNode.dc_id: ['DC_EAST', 'DC_WEST']
+  - GraphNode.destination_dc: ['DC_EAST']
+  - GraphNode.directionality: ['higher_is_better', 'lower_is_better']
+  - GraphNode.domain: ['commercial', 'compliance', 'logistics', 'planning', 'procurement', 'quality', 'warehousing']
+  - GraphNode.driver_id: ['demand_spike', 'forecast_error', 'low_dc_inventory', 'supplier_lead_time_delay']
+  - GraphNode.forecast_method: ['naive_trend_projection']
+  - GraphNode.grain: ['order_line_day', 'shipment_day', 'sku_dc_day', 'sku_dc_driver_horizon', 'sku_supplier_day']
+  - GraphNode.kpi_id: ['days_of_supply', 'fill_rate', 'otifd', 'perfect_order_rate', 'stockout_rate', 'supplier_otd']
+  - GraphNode.metric: ['dc_on_hand_units', 'demand_units', 'forecast_error_pct', 'supplier_lead_time_days']
+  - GraphNode.mode: ['air', 'ground', 'sea']
+  - GraphNode.ontology_version: ['2.0.0']
+  - GraphNode.origin_port: ['port_shanghai']
+  - GraphNode.outcome_column: ['fill_rate_flag', 'inventory_cover_days', 'otifd_flag', 'stockout_flag', 'supplier_otd_flag']
+  - GraphNode.rca_relevance: ['high', 'medium']
+  - GraphNode.region: ['Central', 'East', 'South', 'West']
+  - GraphNode.regulation: ['multi_jurisdiction']
+  - GraphNode.risk_category: ['commercial', 'compliance', 'external', 'operational', 'structural']
+  - GraphNode.risk_level: ['high', 'low', 'medium']
+  - GraphNode.schema: ['gold']
+  - GraphNode.sku_id: ['SKU_1001', 'SKU_1002']
+  - GraphNode.source_file: ['forecast_projection_nodes.yaml', 'incremental_sync', 'instance_nodes.yaml', 'logistics_network.yaml', 'nodes.yaml', 'risk_taxonomy.yaml']
+  - GraphNode.status: ['delayed', 'delivered', 'delivered_late']
+  - GraphNode.supplier_id: ['Supplier_A', 'Supplier_C']
+  - GraphNode.target_date: ['2026-07-14', '2026-07-21']
+  - InstanceRecord.bias_direction: ['none', 'over', 'under']
+  - InstanceRecord.dc_id: ['DC_EAST', 'DC_WEST']
+  - InstanceRecord.grain: ['order_line_day', 'sku_dc_day']
+  - InstanceRecord.kpi_id: ['days_of_supply', 'fill_rate', 'otifd', 'perfect_order_rate', 'stockout_rate', 'supplier_otd']
+  - InstanceRecord.label: ['DemandForecastSnapshot', 'InventorySnapshot', 'KPIObservation', 'PurchaseOrder', 'Shipment']
+  - InstanceRecord.ontology_version: ['2.0.0']
+  - InstanceRecord.sku_id: ['SKU_1001', 'SKU_1002']
+  - InstanceRecord.source_file: ['incremental_sync', 'instance_nodes.yaml']
+  - InstanceRecord.status: ['delayed', 'delivered', 'delivered_late']
+  - InstanceRecord.supplier_id: ['Supplier_A', 'Supplier_C']
+  - IntermediateFactor.id: ['excess_inventory', 'inventory_depletion', 'low_dc_inventory', 'low_inventory_cover', 'replenishment_delay']
+  - IntermediateFactor.label: ['IntermediateFactor']
+  - IntermediateFactor.name: ['Excess Inventory', 'Inventory Depletion', 'Low DC Inventory', 'Low Inventory Cover', 'Replenishment Delay']
+  - IntermediateFactor.ontology_version: ['2.0.0']
+  - IntermediateFactor.source_file: ['nodes.yaml']
+  - Intervention.action_owner: ['DC Operations', 'Demand Planning', 'Logistics', 'Procurement', 'Supply Planning']
+  - Intervention.id: ['activate_alternate_supplier', 'adjust_replenishment_frequency', 'air_freight_escalation', 'expedite_po', 'increase_safety_stock', 'override_forecast', 'port_diversion', 'rebalance_inventory']
+  - Intervention.label: ['Intervention']
+  - Intervention.name: ['Activate Alternate Supplier', 'Adjust Replenishment Frequency', 'Air Freight Escalation', 'Expedite PO', 'Increase Safety Stock', 'Override Forecast', 'Port Diversion', 'Rebalance Inventory']
+  - Intervention.ontology_version: ['2.0.0']
+  - Intervention.source_file: ['nodes.yaml']
+  - InventorySnapshot.dc_id: ['DC_EAST', 'DC_WEST']
+  - InventorySnapshot.grain: ['sku_dc_day']
+  - InventorySnapshot.label: ['InventorySnapshot']
+  - InventorySnapshot.ontology_version: ['2.0.0']
+  - InventorySnapshot.sku_id: ['SKU_1001', 'SKU_1002']
+  - InventorySnapshot.source_file: ['incremental_sync', 'instance_nodes.yaml']
+  - KPI.directionality: ['higher_is_better', 'lower_is_better']
+  - KPI.id: ['days_of_supply', 'fill_rate', 'otifd', 'perfect_order_rate', 'stockout_rate', 'supplier_otd']
+  - KPI.label: ['KPI']
+  - KPI.name: ['Days of Supply', 'Fill Rate', 'On-Time In-Full Delivery', 'Perfect Order Rate', 'Stockout Rate', 'Supplier On-Time Delivery']
+  - KPI.ontology_version: ['2.0.0']
+  - KPI.outcome_column: ['fill_rate_flag', 'inventory_cover_days', 'otifd_flag', 'stockout_flag', 'supplier_otd_flag']
+  - KPI.source_file: ['nodes.yaml']
+  - KPIObservation.dc_id: ['DC_EAST', 'DC_WEST']
+  - KPIObservation.grain: ['sku_dc_day']
+  - KPIObservation.kpi_id: ['days_of_supply', 'fill_rate', 'otifd', 'perfect_order_rate', 'stockout_rate', 'supplier_otd']
+  - KPIObservation.label: ['KPIObservation']
+  - KPIObservation.ontology_version: ['2.0.0']
+  - KPIObservation.sku_id: ['SKU_1001', 'SKU_1002']
+  - KPIObservation.source_file: ['incremental_sync', 'instance_nodes.yaml']
+  - LogisticsRisk.id: ['logistics_disruption_risk']
+  - LogisticsRisk.label: ['LogisticsRisk']
+  - LogisticsRisk.name: ['Logistics Disruption Risk']
+  - LogisticsRisk.ontology_version: ['2.0.0']
+  - LogisticsRisk.risk_category: ['operational']
+  - LogisticsRisk.source_file: ['risk_taxonomy.yaml']
+  - Port.country: ['CN', 'NL', 'US']
+  - Port.id: ['port_los_angeles', 'port_rotterdam', 'port_shanghai']
+  - Port.label: ['Port']
+  - Port.name: ['Port of Los Angeles', 'Port of Rotterdam', 'Port of Shanghai']
+  - Port.ontology_version: ['2.0.0']
+  - Port.risk_level: ['high', 'low', 'medium']
+  - Port.source_file: ['logistics_network.yaml']
+  - PurchaseOrder.dc_id: ['DC_EAST', 'DC_WEST']
+  - PurchaseOrder.label: ['PurchaseOrder']
+  - PurchaseOrder.ontology_version: ['2.0.0']
+  - PurchaseOrder.sku_id: ['SKU_1001']
+  - PurchaseOrder.source_file: ['instance_nodes.yaml']
+  - PurchaseOrder.status: ['delayed', 'delivered', 'delivered_late']
+  - PurchaseOrder.supplier_id: ['Supplier_A', 'Supplier_C']
+  - RiskNode.id: ['demand_volatility_risk', 'geopolitical_risk', 'logistics_disruption_risk', 'regulatory_compliance_risk', 'supply_concentration_risk']
+  - RiskNode.label: ['ComplianceRequirement', 'DemandRisk', 'GeopoliticalRisk', 'LogisticsRisk', 'SupplyRisk']
+  - RiskNode.ontology_version: ['2.0.0']
+  - RiskNode.regulation: ['multi_jurisdiction']
+  - RiskNode.risk_category: ['commercial', 'compliance', 'external', 'operational', 'structural']
+  - RiskNode.source_file: ['risk_taxonomy.yaml']
+  - SKU.category: ['Beverages', 'Grocery']
+  - SKU.id: ['SKU_1001', 'SKU_1002']
+  - SKU.label: ['SKU']
+  - SKU.name: ['SKU 1001', 'SKU 1002']
+  - SKU.ontology_version: ['2.0.0']
+  - SKU.source_file: ['nodes.yaml']
+  - Shipment.dc_id: ['DC_EAST', 'DC_WEST']
+  - Shipment.grain: ['order_line_day']
+  - Shipment.label: ['Shipment']
+  - Shipment.ontology_version: ['2.0.0']
+  - Shipment.sku_id: ['SKU_1001', 'SKU_1002']
+  - Shipment.source_file: ['instance_nodes.yaml']
+  - Supplier.category: ['Finished Goods', 'Raw Materials']
+  - Supplier.country_of_origin: ['CN', 'IN', 'US']
+  - Supplier.id: ['Supplier_A', 'Supplier_B', 'Supplier_C']
+  - Supplier.label: ['Supplier']
+  - Supplier.name: ['Supplier A', 'Supplier B', 'Supplier C (Backup)']
+  - Supplier.ontology_version: ['2.0.0']
+  - Supplier.source_file: ['nodes.yaml']
+  - SupplyRisk.id: ['supply_concentration_risk']
+  - SupplyRisk.label: ['SupplyRisk']
+  - SupplyRisk.ontology_version: ['2.0.0']
+  - SupplyRisk.risk_category: ['structural']
+  - SupplyRisk.source_file: ['risk_taxonomy.yaml']
+  - TransportLane.destination_dc: ['DC_EAST']
+  - TransportLane.id: ['lane_shanghai_dc_east', 'lane_shanghai_dc_east_air']
+  - TransportLane.label: ['TransportLane']
+  - TransportLane.mode: ['air', 'sea']
+  - TransportLane.ontology_version: ['2.0.0']
+  - TransportLane.origin_port: ['port_shanghai']
+  - TransportLane.source_file: ['logistics_network.yaml']
+
+RENDERED SCHEMA TEXT (what NL2CypherEngine hands the LLM as neo4j_schema):
+Node properties:
+Carrier {id: STRING ['Carrier_DHL', 'Carrier_Maersk', 'Carrier_UPS'], label: STRING ['Carrier'], mode: STRING ['air', 'ground', 'sea'], name: STRING ['DHL Express', 'Maersk Line', 'UPS Supply Chain'], ontology_version: STRING ['2.0.0'], reliability_score: FLOAT, source_file: STRING ['logistics_network.yaml'], updated_at: DATE_TIME}
+CausalDriver {description: STRING, domain: STRING ['commercial', 'compliance', 'logistics', 'planning', 'procurement', 'quality', 'warehousing'], id: STRING, label: STRING ['CausalDriver'], name: STRING, ontology_version: STRING ['2.0.0'], rca_relevance: STRING ['high', 'medium'], source_file: STRING ['nodes.yaml'], updated_at: DATE_TIME}
+CausalMediator {description: STRING, id: STRING ['excess_inventory', 'inventory_depletion', 'low_dc_inventory', 'low_inventory_cover', 'replenishment_delay'], label: STRING ['IntermediateFactor'], name: STRING ['Excess Inventory', 'Inventory Depletion', 'Low DC Inventory', 'Low Inventory Cover', 'Replenishment Delay'], ontology_version: STRING ['2.0.0'], source_file: STRING ['nodes.yaml'], updated_at: DATE_TIME}
+ComplianceRequirement {description: STRING, id: STRING ['regulatory_compliance_risk'], label: STRING ['ComplianceRequirement'], name: STRING ['Regulatory Compliance Risk'], ontology_version: STRING ['2.0.0'], regulation: STRING ['multi_jurisdiction'], risk_category: STRING ['compliance'], source_file: STRING ['risk_taxonomy.yaml'], updated_at: DATE_TIME}
+Customer {channel: STRING ['Ecommerce', 'Retail', 'Wholesale'], description: STRING, id: STRING, label: STRING ['Customer'], name: STRING, ontology_version: STRING ['2.0.0'], region: STRING ['Central', 'East', 'South', 'West'], source_file: STRING ['instance_nodes.yaml'], tier: STRING ['Bronze', 'Gold', 'Silver'], updated_at: DATE_TIME}
+DemandForecastSnapshot {actual_demand_units: INTEGER, bias_direction: STRING ['none', 'over', 'under'], date: STRING, dc_id: STRING ['DC_EAST', 'DC_WEST'], description: STRING, forecast_error_pct: FLOAT, forecast_units: INTEGER, grain: STRING ['sku_dc_day'], id: STRING, label: STRING ['DemandForecastSnapshot'], name: STRING, ontology_version: STRING ['2.0.0'], promotion_flag: BOOLEAN, sku_id: STRING ['SKU_1001', 'SKU_1002'], source_file: STRING ['instance_nodes.yaml'], updated_at: DATE_TIME}
+DemandRisk {description: STRING, id: STRING ['demand_volatility_risk'], label: STRING ['DemandRisk'], name: STRING ['Demand Volatility Risk'], ontology_version: STRING ['2.0.0'], risk_category: STRING ['commercial'], source_file: STRING ['risk_taxonomy.yaml'], updated_at: DATE_TIME}
+DistributionCenter {country: STRING ['US'], description: STRING, id: STRING ['DC_EAST', 'DC_WEST'], label: STRING ['DistributionCenter'], name: STRING ['East Distribution Center', 'West Distribution Center'], ontology_version: STRING ['2.0.0'], region: STRING ['East', 'West'], source_file: STRING ['nodes.yaml'], updated_at: DATE_TIME}
+ForecastProjection {as_of_date: STRING ['2026-07-07'], baseline_value: FLOAT, confidence_high: FLOAT, confidence_low: FLOAT, dc_id: STRING ['DC_EAST', 'DC_WEST'], description: STRING, driver_id: STRING ['demand_spike', 'forecast_error', 'low_dc_inventory', 'supplier_lead_time_delay'], forecast_method: STRING ['naive_trend_projection'], grain: STRING ['sku_dc_driver_horizon'], horizon_days: INTEGER, id: STRING, label: STRING ['ForecastProjection'], metric: STRING ['dc_on_hand_units', 'demand_units', 'forecast_error_pct', 'supplier_lead_time_days'], name: STRING, ontology_version: STRING ['2.0.0'], projected_delta: FLOAT, projected_delta_pct: FLOAT, projected_value: FLOAT, sku_id: STRING ['SKU_1001', 'SKU_1002'], source_file: STRING ['forecast_projection_nodes.yaml'], target_date: STRING ['2026-07-14', '2026-07-21'], updated_at: DATE_TIME}
+GeopoliticalRisk {description: STRING, id: STRING ['geopolitical_risk'], impact_horizon_days: INTEGER, label: STRING ['GeopoliticalRisk'], name: STRING ['Geopolitical Risk'], ontology_version: STRING ['2.0.0'], risk_category: STRING ['external'], source_file: STRING ['risk_taxonomy.yaml'], updated_at: DATE_TIME}
+GoldTable {catalog: STRING ['supply_chain'], description: STRING, grain: STRING ['order_line_day', 'shipment_day', 'sku_dc_day', 'sku_supplier_day'], id: STRING, label: STRING ['GoldTable'], name: STRING, ontology_version: STRING ['2.0.0'], schema: STRING ['gold'], source_file: STRING ['nodes.yaml'], updated_at: DATE_TIME}
+Intervention {action_owner: STRING ['DC Operations', 'Demand Planning', 'Logistics', 'Procurement', 'Supply Planning'], approval_required: BOOLEAN, description: STRING, id: STRING ['activate_alternate_supplier', 'adjust_replenishment_frequency', 'air_freight_escalation', 'expedite_po', 'increase_safety_stock', 'override_forecast', 'port_diversion', 'rebalance_inventory'], label: STRING ['Intervention'], lead_time_days: INTEGER, name: STRING ['Activate Alternate Supplier', 'Adjust Replenishment Frequency', 'Air Freight Escalation', 'Expedite PO', 'Increase Safety Stock', 'Override Forecast', 'Port Diversion', 'Rebalance Inventory'], ontology_version: STRING ['2.0.0'], source_file: STRING ['nodes.yaml'], updated_at: DATE_TIME}
+InventorySnapshot {avg_daily_demand_units: INTEGER, date: STRING, dc_id: STRING ['DC_EAST', 'DC_WEST'], description: STRING, grain: STRING ['sku_dc_day'], id: STRING, inventory_cover_days: FLOAT, is_below_safety_stock: BOOLEAN, label: STRING ['InventorySnapshot'], name: STRING, on_hand_units: INTEGER, ontology_version: STRING ['2.0.0'], safety_stock_units: INTEGER, sku_id: STRING ['SKU_1001', 'SKU_1002'], source_file: STRING ['incremental_sync', 'instance_nodes.yaml'], updated_at: DATE_TIME}
+KPI {description: STRING, directionality: STRING ['higher_is_better', 'lower_is_better'], gold_table: STRING, id: STRING ['days_of_supply', 'fill_rate', 'otifd', 'perfect_order_rate', 'stockout_rate', 'supplier_otd'], label: STRING ['KPI'], name: STRING ['Days of Supply', 'Fill Rate', 'On-Time In-Full Delivery', 'Perfect Order Rate', 'Stockout Rate', 'Supplier On-Time Delivery'], ontology_version: STRING ['2.0.0'], outcome_column: STRING ['fill_rate_flag', 'inventory_cover_days', 'otifd_flag', 'stockout_flag', 'supplier_otd_flag'], source_file: STRING ['nodes.yaml'], updated_at: DATE_TIME}
+KPIObservation {date: STRING, dc_id: STRING ['DC_EAST', 'DC_WEST'], description: STRING, grain: STRING ['sku_dc_day'], id: STRING, kpi_id: STRING ['days_of_supply', 'fill_rate', 'otifd', 'perfect_order_rate', 'stockout_rate', 'supplier_otd'], label: STRING ['KPIObservation'], name: STRING, ontology_version: STRING ['2.0.0'], sku_id: STRING ['SKU_1001', 'SKU_1002'], source_file: STRING ['incremental_sync', 'instance_nodes.yaml'], threshold_breached: BOOLEAN, updated_at: DATE_TIME, value: FLOAT}
+LogisticsRisk {description: STRING, id: STRING ['logistics_disruption_risk'], label: STRING ['LogisticsRisk'], name: STRING ['Logistics Disruption Risk'], ontology_version: STRING ['2.0.0'], risk_category: STRING ['operational'], source_file: STRING ['risk_taxonomy.yaml'], updated_at: DATE_TIME}
+Port {avg_dwell_days: FLOAT, country: STRING ['CN', 'NL', 'US'], id: STRING ['port_los_angeles', 'port_rotterdam', 'port_shanghai'], label: STRING ['Port'], name: STRING ['Port of Los Angeles', 'Port of Rotterdam', 'Port of Shanghai'], ontology_version: STRING ['2.0.0'], risk_level: STRING ['high', 'low', 'medium'], source_file: STRING ['logistics_network.yaml'], updated_at: DATE_TIME}
+PurchaseOrder {actual_arrival_date: STRING, dc_id: STRING ['DC_EAST', 'DC_WEST'], delay_days: INTEGER, description: STRING, id: STRING, label: STRING ['PurchaseOrder'], lead_time_days_actual: INTEGER, lead_time_days_planned: INTEGER, name: STRING, ontology_version: STRING ['2.0.0'], order_date: STRING, promised_arrival_date: STRING, quantity_ordered: INTEGER, quantity_received: INTEGER, sku_id: STRING ['SKU_1001'], source_file: STRING ['instance_nodes.yaml'], status: STRING ['delayed', 'delivered', 'delivered_late'], supplier_id: STRING ['Supplier_A', 'Supplier_C'], updated_at: DATE_TIME}
+SKU {category: STRING ['Beverages', 'Grocery'], description: STRING, id: STRING ['SKU_1001', 'SKU_1002'], label: STRING ['SKU'], name: STRING ['SKU 1001', 'SKU 1002'], ontology_version: STRING ['2.0.0'], source_file: STRING ['nodes.yaml'], updated_at: DATE_TIME}
+Shipment {actual_delivery_date: STRING, customer_id: STRING, dc_id: STRING ['DC_EAST', 'DC_WEST'], description: STRING, grain: STRING ['order_line_day'], id: STRING, label: STRING ['Shipment'], name: STRING, ontology_version: STRING ['2.0.0'], order_date: STRING, otif_flag: BOOLEAN, perfect_order_flag: BOOLEAN, promised_delivery_date: STRING, quantity_ordered: INTEGER, quantity_shipped: INTEGER, sku_id: STRING ['SKU_1001', 'SKU_1002'], source_file: STRING ['instance_nodes.yaml'], updated_at: DATE_TIME}
+Supplier {category: STRING ['Finished Goods', 'Raw Materials'], country_of_origin: STRING ['CN', 'IN', 'US'], description: STRING, id: STRING ['Supplier_A', 'Supplier_B', 'Supplier_C'], is_backup: BOOLEAN, label: STRING ['Supplier'], name: STRING ['Supplier A', 'Supplier B', 'Supplier C (Backup)'], ontology_version: STRING ['2.0.0'], source_file: STRING ['nodes.yaml'], tier: INTEGER, updated_at: DATE_TIME}
+SupplyRisk {description: STRING, id: STRING ['supply_concentration_risk'], label: STRING ['SupplyRisk'], name: STRING, ontology_version: STRING ['2.0.0'], risk_category: STRING ['structural'], source_file: STRING ['risk_taxonomy.yaml'], updated_at: DATE_TIME}
+TransportLane {avg_transit_days: INTEGER, cost_premium_pct: INTEGER, destination_dc: STRING ['DC_EAST'], id: STRING ['lane_shanghai_dc_east', 'lane_shanghai_dc_east_air'], is_primary: BOOLEAN, label: STRING ['TransportLane'], mode: STRING ['air', 'sea'], name: STRING, ontology_version: STRING ['2.0.0'], origin_port: STRING ['port_shanghai'], source_file: STRING ['logistics_network.yaml'], updated_at: DATE_TIME}
+
+Relationship properties:
+AT_DC {id: STRING, ontology_version: STRING, source: STRING, source_file: STRING, target: STRING, updated_at: DATE_TIME}
+CAUSES {applicable_grains: LIST, applicable_kpis: LIST, ate_ci_lower: FLOAT, ate_ci_upper: FLOAT, ate_estimate: FLOAT, confidence: FLOAT, evidence_type: STRING, id: STRING, is_validated: BOOLEAN, lag_days_max: INTEGER, lag_days_min: INTEGER, ontology_version: STRING, provenance: STRING, source: STRING, source_file: STRING, target: STRING, updated_at: DATE_TIME}
+CONTRIBUTES_TO {applicable_kpis: LIST, confidence: FLOAT, evidence_type: STRING, id: STRING, is_validated: BOOLEAN, ontology_version: STRING, source: STRING, source_file: STRING, target: STRING, updated_at: DATE_TIME}
+EVIDENCES {confidence: FLOAT, date: STRING, evidence_type: STRING, id: STRING, observed_value: FLOAT, ontology_version: STRING, severity: STRING, source: STRING, source_file: STRING, source_record_id: STRING, source_table: STRING, target: STRING, threshold_value: FLOAT, updated_at: DATE_TIME}
+FOR_DRIVER {id: STRING, ontology_version: STRING, source: STRING, source_file: STRING, target: STRING, updated_at: DATE_TIME}
+FOR_SKU {id: STRING, ontology_version: STRING, source: STRING, source_file: STRING, target: STRING, updated_at: DATE_TIME}
+FROM_SUPPLIER {id: STRING, ontology_version: STRING, source: STRING, source_file: STRING, target: STRING, updated_at: DATE_TIME}
+MITIGATES {id: STRING, ontology_version: STRING, source: STRING, source_file: STRING, target: STRING, updated_at: DATE_TIME}
+OBSERVES_KPI {id: STRING, ontology_version: STRING, source: STRING, source_file: STRING, target: STRING, updated_at: DATE_TIME}
+SHIPS_TO {id: STRING, ontology_version: STRING, source: STRING, source_file: STRING, target: STRING, updated_at: DATE_TIME}
+STORED_AT {id: STRING, ontology_version: STRING, source: STRING, source_file: STRING, target: STRING, updated_at: DATE_TIME}
+SUPPLIED_BY {id: STRING, ontology_version: STRING, source: STRING, source_file: STRING, target: STRING, updated_at: DATE_TIME}
+SUPPLIES_TO {id: STRING, ontology_version: STRING, source: STRING, source_file: STRING, target: STRING, updated_at: DATE_TIME}
+TO_CUSTOMER {id: STRING, ontology_version: STRING, source: STRING, source_file: STRING, target: STRING, updated_at: DATE_TIME}
+
+The relationships:
+(:CausalDriver)-[:CAUSES]->(:CausalDriver)
+(:CausalDriver)-[:CAUSES]->(:CausalMediator)
+(:CausalDriver)-[:CAUSES]->(:KPI)
+(:CausalDriver)-[:CONTRIBUTES_TO]->(:CausalDriver)
+(:CausalMediator)-[:CAUSES]->(:CausalMediator)
+(:CausalMediator)-[:CAUSES]->(:KPI)
+(:DemandForecastSnapshot)-[:AT_DC]->(:DistributionCenter)
+(:DemandForecastSnapshot)-[:EVIDENCES]->(:CausalDriver)
+(:DemandForecastSnapshot)-[:FOR_SKU]->(:SKU)
+(:ForecastProjection)-[:AT_DC]->(:DistributionCenter)
+(:ForecastProjection)-[:FOR_DRIVER]->(:CausalDriver)
+(:ForecastProjection)-[:FOR_DRIVER]->(:CausalMediator)
+(:ForecastProjection)-[:FOR_SKU]->(:SKU)
+(:Intervention)-[:MITIGATES]->(:CausalDriver)
+(:Intervention)-[:MITIGATES]->(:CausalMediator)
+(:InventorySnapshot)-[:AT_DC]->(:DistributionCenter)
+(:InventorySnapshot)-[:EVIDENCES]->(:CausalMediator)
+(:InventorySnapshot)-[:FOR_SKU]->(:SKU)
+(:KPIObservation)-[:AT_DC]->(:DistributionCenter)
+(:KPIObservation)-[:FOR_SKU]->(:SKU)
+(:KPIObservation)-[:OBSERVES_KPI]->(:KPI)
+(:PurchaseOrder)-[:AT_DC]->(:DistributionCenter)
+(:PurchaseOrder)-[:EVIDENCES]->(:CausalDriver)
+(:PurchaseOrder)-[:FOR_SKU]->(:SKU)
+(:PurchaseOrder)-[:FROM_SUPPLIER]->(:Supplier)
+(:SKU)-[:STORED_AT]->(:DistributionCenter)
+(:SKU)-[:SUPPLIED_BY]->(:Supplier)
+(:Shipment)-[:AT_DC]->(:DistributionCenter)
+(:Shipment)-[:FOR_SKU]->(:SKU)
+(:Shipment)-[:TO_CUSTOMER]->(:Customer)
+(:Supplier)-[:SHIPS_TO]->(:DistributionCenter)
+(:Supplier)-[:SUPPLIES_TO]->(:Supplier)
+
+Note: GraphNode is a shared base label across 24 node types (Carrier, CausalDriver, CausalMediator, ComplianceRequirement, Customer, DemandForecastSnapshot, DemandRisk, DistributionCenter, ForecastProjection, GeopoliticalRisk, GoldTable, IntermediateFactor, Intervention, InventorySnapshot, KPI, KPIObservation, LogisticsRisk, Port, PurchaseOrder, SKU, Shipment, Supplier, SupplyRisk, TransportLane) — matching a specific label already matches everything GraphNode would; you rarely need to match GraphNode directly.
+Note: InstanceRecord is a shared base label across 5 node types (DemandForecastSnapshot, InventorySnapshot, KPIObservation, PurchaseOrder, Shipment) — matching a specific label already matches everything InstanceRecord would; you rarely need to match InstanceRecord directly.
+Note: RiskNode is a shared base label across 5 node types (ComplianceRequirement, DemandRisk, GeopoliticalRisk, LogisticsRisk, SupplyRisk) — matching a specific label already matches everything RiskNode would; you rarely need to match RiskNode directly.
+Note: CausalMediator and IntermediateFactor nodes are the same underlying nodes (all these labels coexist) — matching any one of them matches the same nodes.
+Note: these properties hold date-like values stored as STRING, not a native Neo4j DATE (confirmed live): DemandForecastSnapshot.date, ForecastProjection.as_of_date, ForecastProjection.target_date, InventorySnapshot.date, KPIObservation.date, PurchaseOrder.actual_arrival_date, PurchaseOrder.order_date, PurchaseOrder.promised_arrival_date, Shipment.actual_delivery_date, Shipment.order_date, Shipment.promised_delivery_date. Wrap in date(...) before comparing to date() or duration arithmetic — comparing the raw string silently matches nothing.
+
+FEW-SHOT EXAMPLES KEPT (18 / 18):
+  - USER INPUT: 'Which suppliers ship to DC_EAST?' QUERY: MATCH (s:Supplier)-[:SHIPS_TO]->(dc:DistributionCenter {id: 'DC_EAST'}) RETURN s.id, s.name, s.tier
+  - USER INPUT: 'List all interventions that do not require approval.' QUERY: MATCH (i:Intervention {approval_required: false}) RETURN i.id, i.name, i.action_owner, i.lead_time_days
+  - USER INPUT: 'Which causal drivers can eventually lead to an increase in stockout_rate?' QUERY: MATCH (d:CausalDriver)-[:CAUSES|CONTRIBUTES_TO*1..5]->(k:KPI {id: 'stockout_rate'}) RETURN DISTINCT d.id, d.name
+  - USER INPUT: 'What interventions mitigate supplier lead time delay?' QUERY: MATCH (i:Intervention)-[:MITIGATES]->(d {id: 'supplier_lead_time_delay'}) RETURN i.id, i.name, i.approval_required, i.action_owner
+  - USER INPUT: 'Which purchase orders were delayed by more than 5 days?' QUERY: MATCH (po:PurchaseOrder) WHERE po.delay_days > 5 RETURN po.id, po.sku_id, po.supplier_id, po.delay_days ORDER BY po.delay_days DESC
+  - USER INPUT: 'How many inventory snapshots for SKU_1002 were below safety stock?' QUERY: MATCH (inv:InventorySnapshot {sku_id: 'SKU_1002', is_below_safety_stock: true}) RETURN count(inv) AS below_safety_stock_count
+  - USER INPUT: 'Show evidence records supporting the port_congestion driver, most recent first.' QUERY: MATCH (e)-[:EVIDENCES]->(d:CausalDriver {id: 'port_congestion'}) RETURN e.id, e.evidence_type, e.severity, e.confidence, e.date ORDER BY e.date DESC
+  - USER INPUT: 'What is the average forecast error percentage for SKU_1001 at DC_WEST?' QUERY: MATCH (f:DemandForecastSnapshot {sku_id: 'SKU_1001', dc_id: 'DC_WEST'}) RETURN avg(f.forecast_error_pct) AS avg_forecast_error_pct
+  - USER INPUT: 'List every KPI and its directionality.' QUERY: MATCH (k:KPI) RETURN k.id, k.name, k.directionality
+  - USER INPUT: 'Which SKUs are stored at more than one distribution center?' QUERY: MATCH (s:SKU)-[:STORED_AT]->(dc:DistributionCenter) WITH s, count(dc) AS dc_count WHERE dc_count > 1 RETURN s.id, dc_count
+  - USER INPUT: 'Which ports have a high risk level?' QUERY: MATCH (p:Port {risk_level: 'high'}) RETURN p.id, p.name, p.country, p.avg_dwell_days
+  - USER INPUT: 'List transport lanes that are not the primary lane.' QUERY: MATCH (l:TransportLane {is_primary: false}) RETURN l.id, l.name, l.origin_port, l.destination_dc, l.mode, l.cost_premium_pct
+  - USER INPUT: 'Show inventory snapshots for SKU_1002 at DC_EAST from the last 14 days.' QUERY: MATCH (i:InventorySnapshot {sku_id: 'SKU_1002', dc_id: 'DC_EAST'}) WHERE date(i.date) >= date() - duration('P14D') RETURN i.id, i.date, i.on_hand_units, i.inventory_cover_days, i.is_below_safety_stock ORDER BY i.date DESC
+  - USER INPUT: 'What was the average forecast error for SKU_1001 at DC_WEST over the last 30 days?' QUERY: MATCH (f:DemandForecastSnapshot {sku_id: 'SKU_1001', dc_id: 'DC_WEST'}) WHERE date(f.date) >= date() - duration('P30D') RETURN avg(f.forecast_error_pct) AS avg_forecast_error_pct
+  - USER INPUT: 'How did fill_rate change for SKU_1001 at DC_WEST over the last 30 days?' QUERY: MATCH (o:KPIObservation {sku_id: 'SKU_1001', dc_id: 'DC_WEST', kpi_id: 'fill_rate'}) WHERE date(o.date) >= date() - duration('P30D') RETURN o.date, o.value, o.threshold_breached ORDER BY o.date DESC
+  - USER INPUT: 'Which distribution centers have low on-time in-full delivery?' QUERY: MATCH (o:KPIObservation {kpi_id: 'otifd', threshold_breached: true}) RETURN DISTINCT o.dc_id, o.sku_id, o.date, o.value ORDER BY o.date DESC
+  - USER INPUT: 'Show evidence of supplier delay affecting DC_EAST in the last 60 days.' QUERY: MATCH (e)-[ev:EVIDENCES {evidence_type: 'supplier_delay'}]->(d) WHERE date(ev.date) >= date() - duration('P60D') RETURN e.id, d.id AS driver, ev.severity, ev.observed_value, ev.threshold_value, ev.date ORDER BY ev.date DESC
+  - USER INPUT: 'Which shipments to DC_EAST were not on-time-in-full in the last 21 days?' QUERY: MATCH (sh:Shipment {dc_id: 'DC_EAST', otif_flag: false}) WHERE date(sh.actual_delivery_date) >= date() - duration('P21D') RETURN sh.id, sh.sku_id, sh.customer_id, sh.promised_delivery_date, sh.actual_delivery_date ORDER BY sh.actual_delivery_date DESC
+
+FEW-SHOT EXAMPLES DROPPED as stale (0):
+  (none)
+
+[auto: new graph connection detected — neo4j://127.0.0.1:7687|neo4j]
+====================================================================================================
+Timestamp: 2026-07-07T18:21:16.949817+00:00
+
+Labels: 27   Relationships: 14   Enum-annotated properties: 202
+
+ENUM VALUES SAMPLED LIVE (label.property: values):
+  - Carrier.id: ['Carrier_DHL', 'Carrier_Maersk', 'Carrier_UPS']
+  - Carrier.label: ['Carrier']
+  - Carrier.mode: ['air', 'ground', 'sea']
+  - Carrier.name: ['DHL Express', 'Maersk Line', 'UPS Supply Chain']
+  - Carrier.ontology_version: ['2.0.0']
+  - Carrier.source_file: ['logistics_network.yaml']
+  - CausalDriver.domain: ['commercial', 'compliance', 'logistics', 'planning', 'procurement', 'quality', 'warehousing']
+  - CausalDriver.label: ['CausalDriver']
+  - CausalDriver.ontology_version: ['2.0.0']
+  - CausalDriver.rca_relevance: ['high', 'medium']
+  - CausalDriver.source_file: ['nodes.yaml']
+  - CausalMediator.id: ['excess_inventory', 'inventory_depletion', 'low_dc_inventory', 'low_inventory_cover', 'replenishment_delay']
+  - CausalMediator.label: ['IntermediateFactor']
+  - CausalMediator.name: ['Excess Inventory', 'Inventory Depletion', 'Low DC Inventory', 'Low Inventory Cover', 'Replenishment Delay']
+  - CausalMediator.ontology_version: ['2.0.0']
+  - CausalMediator.source_file: ['nodes.yaml']
+  - ComplianceRequirement.id: ['regulatory_compliance_risk']
+  - ComplianceRequirement.label: ['ComplianceRequirement']
+  - ComplianceRequirement.name: ['Regulatory Compliance Risk']
+  - ComplianceRequirement.ontology_version: ['2.0.0']
+  - ComplianceRequirement.regulation: ['multi_jurisdiction']
+  - ComplianceRequirement.risk_category: ['compliance']
+  - ComplianceRequirement.source_file: ['risk_taxonomy.yaml']
+  - Customer.channel: ['Ecommerce', 'Retail', 'Wholesale']
+  - Customer.label: ['Customer']
+  - Customer.ontology_version: ['2.0.0']
+  - Customer.region: ['Central', 'East', 'South', 'West']
+  - Customer.source_file: ['instance_nodes.yaml']
+  - Customer.tier: ['Bronze', 'Gold', 'Silver']
+  - DemandForecastSnapshot.bias_direction: ['none', 'over', 'under']
+  - DemandForecastSnapshot.dc_id: ['DC_EAST', 'DC_WEST']
+  - DemandForecastSnapshot.grain: ['sku_dc_day']
+  - DemandForecastSnapshot.label: ['DemandForecastSnapshot']
+  - DemandForecastSnapshot.ontology_version: ['2.0.0']
+  - DemandForecastSnapshot.sku_id: ['SKU_1001', 'SKU_1002']
+  - DemandForecastSnapshot.source_file: ['instance_nodes.yaml']
+  - DemandRisk.id: ['demand_volatility_risk']
+  - DemandRisk.label: ['DemandRisk']
+  - DemandRisk.name: ['Demand Volatility Risk']
+  - DemandRisk.ontology_version: ['2.0.0']
+  - DemandRisk.risk_category: ['commercial']
+  - DemandRisk.source_file: ['risk_taxonomy.yaml']
+  - DistributionCenter.country: ['US']
+  - DistributionCenter.id: ['DC_EAST', 'DC_WEST']
+  - DistributionCenter.label: ['DistributionCenter']
+  - DistributionCenter.name: ['East Distribution Center', 'West Distribution Center']
+  - DistributionCenter.ontology_version: ['2.0.0']
+  - DistributionCenter.region: ['East', 'West']
+  - DistributionCenter.source_file: ['nodes.yaml']
+  - ForecastProjection.as_of_date: ['2026-07-07']
+  - ForecastProjection.dc_id: ['DC_EAST', 'DC_WEST']
+  - ForecastProjection.driver_id: ['demand_spike', 'forecast_error', 'low_dc_inventory', 'supplier_lead_time_delay']
+  - ForecastProjection.forecast_method: ['naive_trend_projection']
+  - ForecastProjection.grain: ['sku_dc_driver_horizon']
+  - ForecastProjection.label: ['ForecastProjection']
+  - ForecastProjection.metric: ['dc_on_hand_units', 'demand_units', 'forecast_error_pct', 'supplier_lead_time_days']
+  - ForecastProjection.ontology_version: ['2.0.0']
+  - ForecastProjection.sku_id: ['SKU_1001', 'SKU_1002']
+  - ForecastProjection.source_file: ['forecast_projection_nodes.yaml']
+  - ForecastProjection.target_date: ['2026-07-14', '2026-07-21']
+  - GeopoliticalRisk.id: ['geopolitical_risk']
+  - GeopoliticalRisk.label: ['GeopoliticalRisk']
+  - GeopoliticalRisk.name: ['Geopolitical Risk']
+  - GeopoliticalRisk.ontology_version: ['2.0.0']
+  - GeopoliticalRisk.risk_category: ['external']
+  - GeopoliticalRisk.source_file: ['risk_taxonomy.yaml']
+  - GoldTable.catalog: ['supply_chain']
+  - GoldTable.grain: ['order_line_day', 'shipment_day', 'sku_dc_day', 'sku_supplier_day']
+  - GoldTable.label: ['GoldTable']
+  - GoldTable.ontology_version: ['2.0.0']
+  - GoldTable.schema: ['gold']
+  - GoldTable.source_file: ['nodes.yaml']
+  - GraphNode.action_owner: ['DC Operations', 'Demand Planning', 'Logistics', 'Procurement', 'Supply Planning']
+  - GraphNode.as_of_date: ['2026-07-07']
+  - GraphNode.bias_direction: ['none', 'over', 'under']
+  - GraphNode.catalog: ['supply_chain']
+  - GraphNode.category: ['Beverages', 'Finished Goods', 'Grocery', 'Raw Materials']
+  - GraphNode.channel: ['Ecommerce', 'Retail', 'Wholesale']
+  - GraphNode.country: ['CN', 'NL', 'US']
+  - GraphNode.country_of_origin: ['CN', 'IN', 'US']
+  - GraphNode.dc_id: ['DC_EAST', 'DC_WEST']
+  - GraphNode.destination_dc: ['DC_EAST']
+  - GraphNode.directionality: ['higher_is_better', 'lower_is_better']
+  - GraphNode.domain: ['commercial', 'compliance', 'logistics', 'planning', 'procurement', 'quality', 'warehousing']
+  - GraphNode.driver_id: ['demand_spike', 'forecast_error', 'low_dc_inventory', 'supplier_lead_time_delay']
+  - GraphNode.forecast_method: ['naive_trend_projection']
+  - GraphNode.grain: ['order_line_day', 'shipment_day', 'sku_dc_day', 'sku_dc_driver_horizon', 'sku_supplier_day']
+  - GraphNode.kpi_id: ['days_of_supply', 'fill_rate', 'otifd', 'perfect_order_rate', 'stockout_rate', 'supplier_otd']
+  - GraphNode.metric: ['dc_on_hand_units', 'demand_units', 'forecast_error_pct', 'supplier_lead_time_days']
+  - GraphNode.mode: ['air', 'ground', 'sea']
+  - GraphNode.ontology_version: ['2.0.0']
+  - GraphNode.origin_port: ['port_shanghai']
+  - GraphNode.outcome_column: ['fill_rate_flag', 'inventory_cover_days', 'otifd_flag', 'stockout_flag', 'supplier_otd_flag']
+  - GraphNode.rca_relevance: ['high', 'medium']
+  - GraphNode.region: ['Central', 'East', 'South', 'West']
+  - GraphNode.regulation: ['multi_jurisdiction']
+  - GraphNode.risk_category: ['commercial', 'compliance', 'external', 'operational', 'structural']
+  - GraphNode.risk_level: ['high', 'low', 'medium']
+  - GraphNode.schema: ['gold']
+  - GraphNode.sku_id: ['SKU_1001', 'SKU_1002']
+  - GraphNode.source_file: ['forecast_projection_nodes.yaml', 'incremental_sync', 'instance_nodes.yaml', 'logistics_network.yaml', 'nodes.yaml', 'risk_taxonomy.yaml']
+  - GraphNode.status: ['delayed', 'delivered', 'delivered_late']
+  - GraphNode.supplier_id: ['Supplier_A', 'Supplier_C']
+  - GraphNode.target_date: ['2026-07-14', '2026-07-21']
+  - InstanceRecord.bias_direction: ['none', 'over', 'under']
+  - InstanceRecord.dc_id: ['DC_EAST', 'DC_WEST']
+  - InstanceRecord.grain: ['order_line_day', 'sku_dc_day']
+  - InstanceRecord.kpi_id: ['days_of_supply', 'fill_rate', 'otifd', 'perfect_order_rate', 'stockout_rate', 'supplier_otd']
+  - InstanceRecord.label: ['DemandForecastSnapshot', 'InventorySnapshot', 'KPIObservation', 'PurchaseOrder', 'Shipment']
+  - InstanceRecord.ontology_version: ['2.0.0']
+  - InstanceRecord.sku_id: ['SKU_1001', 'SKU_1002']
+  - InstanceRecord.source_file: ['incremental_sync', 'instance_nodes.yaml']
+  - InstanceRecord.status: ['delayed', 'delivered', 'delivered_late']
+  - InstanceRecord.supplier_id: ['Supplier_A', 'Supplier_C']
+  - IntermediateFactor.id: ['excess_inventory', 'inventory_depletion', 'low_dc_inventory', 'low_inventory_cover', 'replenishment_delay']
+  - IntermediateFactor.label: ['IntermediateFactor']
+  - IntermediateFactor.name: ['Excess Inventory', 'Inventory Depletion', 'Low DC Inventory', 'Low Inventory Cover', 'Replenishment Delay']
+  - IntermediateFactor.ontology_version: ['2.0.0']
+  - IntermediateFactor.source_file: ['nodes.yaml']
+  - Intervention.action_owner: ['DC Operations', 'Demand Planning', 'Logistics', 'Procurement', 'Supply Planning']
+  - Intervention.id: ['activate_alternate_supplier', 'adjust_replenishment_frequency', 'air_freight_escalation', 'expedite_po', 'increase_safety_stock', 'override_forecast', 'port_diversion', 'rebalance_inventory']
+  - Intervention.label: ['Intervention']
+  - Intervention.name: ['Activate Alternate Supplier', 'Adjust Replenishment Frequency', 'Air Freight Escalation', 'Expedite PO', 'Increase Safety Stock', 'Override Forecast', 'Port Diversion', 'Rebalance Inventory']
+  - Intervention.ontology_version: ['2.0.0']
+  - Intervention.source_file: ['nodes.yaml']
+  - InventorySnapshot.dc_id: ['DC_EAST', 'DC_WEST']
+  - InventorySnapshot.grain: ['sku_dc_day']
+  - InventorySnapshot.label: ['InventorySnapshot']
+  - InventorySnapshot.ontology_version: ['2.0.0']
+  - InventorySnapshot.sku_id: ['SKU_1001', 'SKU_1002']
+  - InventorySnapshot.source_file: ['incremental_sync', 'instance_nodes.yaml']
+  - KPI.directionality: ['higher_is_better', 'lower_is_better']
+  - KPI.id: ['days_of_supply', 'fill_rate', 'otifd', 'perfect_order_rate', 'stockout_rate', 'supplier_otd']
+  - KPI.label: ['KPI']
+  - KPI.name: ['Days of Supply', 'Fill Rate', 'On-Time In-Full Delivery', 'Perfect Order Rate', 'Stockout Rate', 'Supplier On-Time Delivery']
+  - KPI.ontology_version: ['2.0.0']
+  - KPI.outcome_column: ['fill_rate_flag', 'inventory_cover_days', 'otifd_flag', 'stockout_flag', 'supplier_otd_flag']
+  - KPI.source_file: ['nodes.yaml']
+  - KPIObservation.dc_id: ['DC_EAST', 'DC_WEST']
+  - KPIObservation.grain: ['sku_dc_day']
+  - KPIObservation.kpi_id: ['days_of_supply', 'fill_rate', 'otifd', 'perfect_order_rate', 'stockout_rate', 'supplier_otd']
+  - KPIObservation.label: ['KPIObservation']
+  - KPIObservation.ontology_version: ['2.0.0']
+  - KPIObservation.sku_id: ['SKU_1001', 'SKU_1002']
+  - KPIObservation.source_file: ['incremental_sync', 'instance_nodes.yaml']
+  - LogisticsRisk.id: ['logistics_disruption_risk']
+  - LogisticsRisk.label: ['LogisticsRisk']
+  - LogisticsRisk.name: ['Logistics Disruption Risk']
+  - LogisticsRisk.ontology_version: ['2.0.0']
+  - LogisticsRisk.risk_category: ['operational']
+  - LogisticsRisk.source_file: ['risk_taxonomy.yaml']
+  - Port.country: ['CN', 'NL', 'US']
+  - Port.id: ['port_los_angeles', 'port_rotterdam', 'port_shanghai']
+  - Port.label: ['Port']
+  - Port.name: ['Port of Los Angeles', 'Port of Rotterdam', 'Port of Shanghai']
+  - Port.ontology_version: ['2.0.0']
+  - Port.risk_level: ['high', 'low', 'medium']
+  - Port.source_file: ['logistics_network.yaml']
+  - PurchaseOrder.dc_id: ['DC_EAST', 'DC_WEST']
+  - PurchaseOrder.label: ['PurchaseOrder']
+  - PurchaseOrder.ontology_version: ['2.0.0']
+  - PurchaseOrder.sku_id: ['SKU_1001']
+  - PurchaseOrder.source_file: ['instance_nodes.yaml']
+  - PurchaseOrder.status: ['delayed', 'delivered', 'delivered_late']
+  - PurchaseOrder.supplier_id: ['Supplier_A', 'Supplier_C']
+  - RiskNode.id: ['demand_volatility_risk', 'geopolitical_risk', 'logistics_disruption_risk', 'regulatory_compliance_risk', 'supply_concentration_risk']
+  - RiskNode.label: ['ComplianceRequirement', 'DemandRisk', 'GeopoliticalRisk', 'LogisticsRisk', 'SupplyRisk']
+  - RiskNode.ontology_version: ['2.0.0']
+  - RiskNode.regulation: ['multi_jurisdiction']
+  - RiskNode.risk_category: ['commercial', 'compliance', 'external', 'operational', 'structural']
+  - RiskNode.source_file: ['risk_taxonomy.yaml']
+  - SKU.category: ['Beverages', 'Grocery']
+  - SKU.id: ['SKU_1001', 'SKU_1002']
+  - SKU.label: ['SKU']
+  - SKU.name: ['SKU 1001', 'SKU 1002']
+  - SKU.ontology_version: ['2.0.0']
+  - SKU.source_file: ['nodes.yaml']
+  - Shipment.dc_id: ['DC_EAST', 'DC_WEST']
+  - Shipment.grain: ['order_line_day']
+  - Shipment.label: ['Shipment']
+  - Shipment.ontology_version: ['2.0.0']
+  - Shipment.sku_id: ['SKU_1001', 'SKU_1002']
+  - Shipment.source_file: ['instance_nodes.yaml']
+  - Supplier.category: ['Finished Goods', 'Raw Materials']
+  - Supplier.country_of_origin: ['CN', 'IN', 'US']
+  - Supplier.id: ['Supplier_A', 'Supplier_B', 'Supplier_C']
+  - Supplier.label: ['Supplier']
+  - Supplier.name: ['Supplier A', 'Supplier B', 'Supplier C (Backup)']
+  - Supplier.ontology_version: ['2.0.0']
+  - Supplier.source_file: ['nodes.yaml']
+  - SupplyRisk.id: ['supply_concentration_risk']
+  - SupplyRisk.label: ['SupplyRisk']
+  - SupplyRisk.ontology_version: ['2.0.0']
+  - SupplyRisk.risk_category: ['structural']
+  - SupplyRisk.source_file: ['risk_taxonomy.yaml']
+  - TransportLane.destination_dc: ['DC_EAST']
+  - TransportLane.id: ['lane_shanghai_dc_east', 'lane_shanghai_dc_east_air']
+  - TransportLane.label: ['TransportLane']
+  - TransportLane.mode: ['air', 'sea']
+  - TransportLane.ontology_version: ['2.0.0']
+  - TransportLane.origin_port: ['port_shanghai']
+  - TransportLane.source_file: ['logistics_network.yaml']
+
+RENDERED SCHEMA TEXT (what NL2CypherEngine hands the LLM as neo4j_schema):
+Node properties:
+Carrier {id: STRING ['Carrier_DHL', 'Carrier_Maersk', 'Carrier_UPS'], label: STRING ['Carrier'], mode: STRING ['air', 'ground', 'sea'], name: STRING ['DHL Express', 'Maersk Line', 'UPS Supply Chain'], ontology_version: STRING ['2.0.0'], reliability_score: FLOAT, source_file: STRING ['logistics_network.yaml'], updated_at: DATE_TIME}
+CausalDriver {description: STRING, domain: STRING ['commercial', 'compliance', 'logistics', 'planning', 'procurement', 'quality', 'warehousing'], id: STRING, label: STRING ['CausalDriver'], name: STRING, ontology_version: STRING ['2.0.0'], rca_relevance: STRING ['high', 'medium'], source_file: STRING ['nodes.yaml'], updated_at: DATE_TIME}
+CausalMediator {description: STRING, id: STRING ['excess_inventory', 'inventory_depletion', 'low_dc_inventory', 'low_inventory_cover', 'replenishment_delay'], label: STRING ['IntermediateFactor'], name: STRING ['Excess Inventory', 'Inventory Depletion', 'Low DC Inventory', 'Low Inventory Cover', 'Replenishment Delay'], ontology_version: STRING ['2.0.0'], source_file: STRING ['nodes.yaml'], updated_at: DATE_TIME}
+ComplianceRequirement {description: STRING, id: STRING ['regulatory_compliance_risk'], label: STRING ['ComplianceRequirement'], name: STRING ['Regulatory Compliance Risk'], ontology_version: STRING ['2.0.0'], regulation: STRING ['multi_jurisdiction'], risk_category: STRING ['compliance'], source_file: STRING ['risk_taxonomy.yaml'], updated_at: DATE_TIME}
+Customer {channel: STRING ['Ecommerce', 'Retail', 'Wholesale'], description: STRING, id: STRING, label: STRING ['Customer'], name: STRING, ontology_version: STRING ['2.0.0'], region: STRING ['Central', 'East', 'South', 'West'], source_file: STRING ['instance_nodes.yaml'], tier: STRING ['Bronze', 'Gold', 'Silver'], updated_at: DATE_TIME}
+DemandForecastSnapshot {actual_demand_units: INTEGER, bias_direction: STRING ['none', 'over', 'under'], date: STRING, dc_id: STRING ['DC_EAST', 'DC_WEST'], description: STRING, forecast_error_pct: FLOAT, forecast_units: INTEGER, grain: STRING ['sku_dc_day'], id: STRING, label: STRING ['DemandForecastSnapshot'], name: STRING, ontology_version: STRING ['2.0.0'], promotion_flag: BOOLEAN, sku_id: STRING ['SKU_1001', 'SKU_1002'], source_file: STRING ['instance_nodes.yaml'], updated_at: DATE_TIME}
+DemandRisk {description: STRING, id: STRING ['demand_volatility_risk'], label: STRING ['DemandRisk'], name: STRING ['Demand Volatility Risk'], ontology_version: STRING ['2.0.0'], risk_category: STRING ['commercial'], source_file: STRING ['risk_taxonomy.yaml'], updated_at: DATE_TIME}
+DistributionCenter {country: STRING ['US'], description: STRING, id: STRING ['DC_EAST', 'DC_WEST'], label: STRING ['DistributionCenter'], name: STRING ['East Distribution Center', 'West Distribution Center'], ontology_version: STRING ['2.0.0'], region: STRING ['East', 'West'], source_file: STRING ['nodes.yaml'], updated_at: DATE_TIME}
+ForecastProjection {as_of_date: STRING ['2026-07-07'], baseline_value: FLOAT, confidence_high: FLOAT, confidence_low: FLOAT, dc_id: STRING ['DC_EAST', 'DC_WEST'], description: STRING, driver_id: STRING ['demand_spike', 'forecast_error', 'low_dc_inventory', 'supplier_lead_time_delay'], forecast_method: STRING ['naive_trend_projection'], grain: STRING ['sku_dc_driver_horizon'], horizon_days: INTEGER, id: STRING, label: STRING ['ForecastProjection'], metric: STRING ['dc_on_hand_units', 'demand_units', 'forecast_error_pct', 'supplier_lead_time_days'], name: STRING, ontology_version: STRING ['2.0.0'], projected_delta: FLOAT, projected_delta_pct: FLOAT, projected_value: FLOAT, sku_id: STRING ['SKU_1001', 'SKU_1002'], source_file: STRING ['forecast_projection_nodes.yaml'], target_date: STRING ['2026-07-14', '2026-07-21'], updated_at: DATE_TIME}
+GeopoliticalRisk {description: STRING, id: STRING ['geopolitical_risk'], impact_horizon_days: INTEGER, label: STRING ['GeopoliticalRisk'], name: STRING ['Geopolitical Risk'], ontology_version: STRING ['2.0.0'], risk_category: STRING ['external'], source_file: STRING ['risk_taxonomy.yaml'], updated_at: DATE_TIME}
+GoldTable {catalog: STRING ['supply_chain'], description: STRING, grain: STRING ['order_line_day', 'shipment_day', 'sku_dc_day', 'sku_supplier_day'], id: STRING, label: STRING ['GoldTable'], name: STRING, ontology_version: STRING ['2.0.0'], schema: STRING ['gold'], source_file: STRING ['nodes.yaml'], updated_at: DATE_TIME}
+Intervention {action_owner: STRING ['DC Operations', 'Demand Planning', 'Logistics', 'Procurement', 'Supply Planning'], approval_required: BOOLEAN, description: STRING, id: STRING ['activate_alternate_supplier', 'adjust_replenishment_frequency', 'air_freight_escalation', 'expedite_po', 'increase_safety_stock', 'override_forecast', 'port_diversion', 'rebalance_inventory'], label: STRING ['Intervention'], lead_time_days: INTEGER, name: STRING ['Activate Alternate Supplier', 'Adjust Replenishment Frequency', 'Air Freight Escalation', 'Expedite PO', 'Increase Safety Stock', 'Override Forecast', 'Port Diversion', 'Rebalance Inventory'], ontology_version: STRING ['2.0.0'], source_file: STRING ['nodes.yaml'], updated_at: DATE_TIME}
+InventorySnapshot {avg_daily_demand_units: INTEGER, date: STRING, dc_id: STRING ['DC_EAST', 'DC_WEST'], description: STRING, grain: STRING ['sku_dc_day'], id: STRING, inventory_cover_days: FLOAT, is_below_safety_stock: BOOLEAN, label: STRING ['InventorySnapshot'], name: STRING, on_hand_units: INTEGER, ontology_version: STRING ['2.0.0'], safety_stock_units: INTEGER, sku_id: STRING ['SKU_1001', 'SKU_1002'], source_file: STRING ['incremental_sync', 'instance_nodes.yaml'], updated_at: DATE_TIME}
+KPI {description: STRING, directionality: STRING ['higher_is_better', 'lower_is_better'], gold_table: STRING, id: STRING ['days_of_supply', 'fill_rate', 'otifd', 'perfect_order_rate', 'stockout_rate', 'supplier_otd'], label: STRING ['KPI'], name: STRING ['Days of Supply', 'Fill Rate', 'On-Time In-Full Delivery', 'Perfect Order Rate', 'Stockout Rate', 'Supplier On-Time Delivery'], ontology_version: STRING ['2.0.0'], outcome_column: STRING ['fill_rate_flag', 'inventory_cover_days', 'otifd_flag', 'stockout_flag', 'supplier_otd_flag'], source_file: STRING ['nodes.yaml'], updated_at: DATE_TIME}
+KPIObservation {date: STRING, dc_id: STRING ['DC_EAST', 'DC_WEST'], description: STRING, grain: STRING ['sku_dc_day'], id: STRING, kpi_id: STRING ['days_of_supply', 'fill_rate', 'otifd', 'perfect_order_rate', 'stockout_rate', 'supplier_otd'], label: STRING ['KPIObservation'], name: STRING, ontology_version: STRING ['2.0.0'], sku_id: STRING ['SKU_1001', 'SKU_1002'], source_file: STRING ['incremental_sync', 'instance_nodes.yaml'], threshold_breached: BOOLEAN, updated_at: DATE_TIME, value: FLOAT}
+LogisticsRisk {description: STRING, id: STRING ['logistics_disruption_risk'], label: STRING ['LogisticsRisk'], name: STRING ['Logistics Disruption Risk'], ontology_version: STRING ['2.0.0'], risk_category: STRING ['operational'], source_file: STRING ['risk_taxonomy.yaml'], updated_at: DATE_TIME}
+Port {avg_dwell_days: FLOAT, country: STRING ['CN', 'NL', 'US'], id: STRING ['port_los_angeles', 'port_rotterdam', 'port_shanghai'], label: STRING ['Port'], name: STRING ['Port of Los Angeles', 'Port of Rotterdam', 'Port of Shanghai'], ontology_version: STRING ['2.0.0'], risk_level: STRING ['high', 'low', 'medium'], source_file: STRING ['logistics_network.yaml'], updated_at: DATE_TIME}
+PurchaseOrder {actual_arrival_date: STRING, dc_id: STRING ['DC_EAST', 'DC_WEST'], delay_days: INTEGER, description: STRING, id: STRING, label: STRING ['PurchaseOrder'], lead_time_days_actual: INTEGER, lead_time_days_planned: INTEGER, name: STRING, ontology_version: STRING ['2.0.0'], order_date: STRING, promised_arrival_date: STRING, quantity_ordered: INTEGER, quantity_received: INTEGER, sku_id: STRING ['SKU_1001'], source_file: STRING ['instance_nodes.yaml'], status: STRING ['delayed', 'delivered', 'delivered_late'], supplier_id: STRING ['Supplier_A', 'Supplier_C'], updated_at: DATE_TIME}
+SKU {category: STRING ['Beverages', 'Grocery'], description: STRING, id: STRING ['SKU_1001', 'SKU_1002'], label: STRING ['SKU'], name: STRING ['SKU 1001', 'SKU 1002'], ontology_version: STRING ['2.0.0'], source_file: STRING ['nodes.yaml'], updated_at: DATE_TIME}
+Shipment {actual_delivery_date: STRING, customer_id: STRING, dc_id: STRING ['DC_EAST', 'DC_WEST'], description: STRING, grain: STRING ['order_line_day'], id: STRING, label: STRING ['Shipment'], name: STRING, ontology_version: STRING ['2.0.0'], order_date: STRING, otif_flag: BOOLEAN, perfect_order_flag: BOOLEAN, promised_delivery_date: STRING, quantity_ordered: INTEGER, quantity_shipped: INTEGER, sku_id: STRING ['SKU_1001', 'SKU_1002'], source_file: STRING ['instance_nodes.yaml'], updated_at: DATE_TIME}
+Supplier {category: STRING ['Finished Goods', 'Raw Materials'], country_of_origin: STRING ['CN', 'IN', 'US'], description: STRING, id: STRING ['Supplier_A', 'Supplier_B', 'Supplier_C'], is_backup: BOOLEAN, label: STRING ['Supplier'], name: STRING ['Supplier A', 'Supplier B', 'Supplier C (Backup)'], ontology_version: STRING ['2.0.0'], source_file: STRING ['nodes.yaml'], tier: INTEGER, updated_at: DATE_TIME}
+SupplyRisk {description: STRING, id: STRING ['supply_concentration_risk'], label: STRING ['SupplyRisk'], name: STRING, ontology_version: STRING ['2.0.0'], risk_category: STRING ['structural'], source_file: STRING ['risk_taxonomy.yaml'], updated_at: DATE_TIME}
+TransportLane {avg_transit_days: INTEGER, cost_premium_pct: INTEGER, destination_dc: STRING ['DC_EAST'], id: STRING ['lane_shanghai_dc_east', 'lane_shanghai_dc_east_air'], is_primary: BOOLEAN, label: STRING ['TransportLane'], mode: STRING ['air', 'sea'], name: STRING, ontology_version: STRING ['2.0.0'], origin_port: STRING ['port_shanghai'], source_file: STRING ['logistics_network.yaml'], updated_at: DATE_TIME}
+
+Relationship properties:
+AT_DC {id: STRING, ontology_version: STRING, source: STRING, source_file: STRING, target: STRING, updated_at: DATE_TIME}
+CAUSES {applicable_grains: LIST, applicable_kpis: LIST, ate_ci_lower: FLOAT, ate_ci_upper: FLOAT, ate_estimate: FLOAT, confidence: FLOAT, evidence_type: STRING, id: STRING, is_validated: BOOLEAN, lag_days_max: INTEGER, lag_days_min: INTEGER, ontology_version: STRING, provenance: STRING, source: STRING, source_file: STRING, target: STRING, updated_at: DATE_TIME}
+CONTRIBUTES_TO {applicable_kpis: LIST, confidence: FLOAT, evidence_type: STRING, id: STRING, is_validated: BOOLEAN, ontology_version: STRING, source: STRING, source_file: STRING, target: STRING, updated_at: DATE_TIME}
+EVIDENCES {confidence: FLOAT, date: STRING, evidence_type: STRING, id: STRING, observed_value: FLOAT, ontology_version: STRING, severity: STRING, source: STRING, source_file: STRING, source_record_id: STRING, source_table: STRING, target: STRING, threshold_value: FLOAT, updated_at: DATE_TIME}
+FOR_DRIVER {id: STRING, ontology_version: STRING, source: STRING, source_file: STRING, target: STRING, updated_at: DATE_TIME}
+FOR_SKU {id: STRING, ontology_version: STRING, source: STRING, source_file: STRING, target: STRING, updated_at: DATE_TIME}
+FROM_SUPPLIER {id: STRING, ontology_version: STRING, source: STRING, source_file: STRING, target: STRING, updated_at: DATE_TIME}
+MITIGATES {id: STRING, ontology_version: STRING, source: STRING, source_file: STRING, target: STRING, updated_at: DATE_TIME}
+OBSERVES_KPI {id: STRING, ontology_version: STRING, source: STRING, source_file: STRING, target: STRING, updated_at: DATE_TIME}
+SHIPS_TO {id: STRING, ontology_version: STRING, source: STRING, source_file: STRING, target: STRING, updated_at: DATE_TIME}
+STORED_AT {id: STRING, ontology_version: STRING, source: STRING, source_file: STRING, target: STRING, updated_at: DATE_TIME}
+SUPPLIED_BY {id: STRING, ontology_version: STRING, source: STRING, source_file: STRING, target: STRING, updated_at: DATE_TIME}
+SUPPLIES_TO {id: STRING, ontology_version: STRING, source: STRING, source_file: STRING, target: STRING, updated_at: DATE_TIME}
+TO_CUSTOMER {id: STRING, ontology_version: STRING, source: STRING, source_file: STRING, target: STRING, updated_at: DATE_TIME}
+
+The relationships:
+(:CausalDriver)-[:CAUSES]->(:CausalDriver)
+(:CausalDriver)-[:CAUSES]->(:CausalMediator)
+(:CausalDriver)-[:CAUSES]->(:KPI)
+(:CausalDriver)-[:CONTRIBUTES_TO]->(:CausalDriver)
+(:CausalMediator)-[:CAUSES]->(:CausalMediator)
+(:CausalMediator)-[:CAUSES]->(:KPI)
+(:DemandForecastSnapshot)-[:AT_DC]->(:DistributionCenter)
+(:DemandForecastSnapshot)-[:EVIDENCES]->(:CausalDriver)
+(:DemandForecastSnapshot)-[:FOR_SKU]->(:SKU)
+(:ForecastProjection)-[:AT_DC]->(:DistributionCenter)
+(:ForecastProjection)-[:FOR_DRIVER]->(:CausalDriver)
+(:ForecastProjection)-[:FOR_DRIVER]->(:CausalMediator)
+(:ForecastProjection)-[:FOR_SKU]->(:SKU)
+(:Intervention)-[:MITIGATES]->(:CausalDriver)
+(:Intervention)-[:MITIGATES]->(:CausalMediator)
+(:InventorySnapshot)-[:AT_DC]->(:DistributionCenter)
+(:InventorySnapshot)-[:EVIDENCES]->(:CausalMediator)
+(:InventorySnapshot)-[:FOR_SKU]->(:SKU)
+(:KPIObservation)-[:AT_DC]->(:DistributionCenter)
+(:KPIObservation)-[:FOR_SKU]->(:SKU)
+(:KPIObservation)-[:OBSERVES_KPI]->(:KPI)
+(:PurchaseOrder)-[:AT_DC]->(:DistributionCenter)
+(:PurchaseOrder)-[:EVIDENCES]->(:CausalDriver)
+(:PurchaseOrder)-[:FOR_SKU]->(:SKU)
+(:PurchaseOrder)-[:FROM_SUPPLIER]->(:Supplier)
+(:SKU)-[:STORED_AT]->(:DistributionCenter)
+(:SKU)-[:SUPPLIED_BY]->(:Supplier)
+(:Shipment)-[:AT_DC]->(:DistributionCenter)
+(:Shipment)-[:FOR_SKU]->(:SKU)
+(:Shipment)-[:TO_CUSTOMER]->(:Customer)
+(:Supplier)-[:SHIPS_TO]->(:DistributionCenter)
+(:Supplier)-[:SUPPLIES_TO]->(:Supplier)
+
+Note: GraphNode is a shared base label across 24 node types (Carrier, CausalDriver, CausalMediator, ComplianceRequirement, Customer, DemandForecastSnapshot, DemandRisk, DistributionCenter, ForecastProjection, GeopoliticalRisk, GoldTable, IntermediateFactor, Intervention, InventorySnapshot, KPI, KPIObservation, LogisticsRisk, Port, PurchaseOrder, SKU, Shipment, Supplier, SupplyRisk, TransportLane) — matching a specific label already matches everything GraphNode would; you rarely need to match GraphNode directly.
+Note: InstanceRecord is a shared base label across 5 node types (DemandForecastSnapshot, InventorySnapshot, KPIObservation, PurchaseOrder, Shipment) — matching a specific label already matches everything InstanceRecord would; you rarely need to match InstanceRecord directly.
+Note: RiskNode is a shared base label across 5 node types (ComplianceRequirement, DemandRisk, GeopoliticalRisk, LogisticsRisk, SupplyRisk) — matching a specific label already matches everything RiskNode would; you rarely need to match RiskNode directly.
+Note: CausalMediator and IntermediateFactor nodes are the same underlying nodes (all these labels coexist) — matching any one of them matches the same nodes.
+Note: these properties hold date-like values stored as STRING, not a native Neo4j DATE (confirmed live): DemandForecastSnapshot.date, ForecastProjection.as_of_date, ForecastProjection.target_date, InventorySnapshot.date, KPIObservation.date, PurchaseOrder.actual_arrival_date, PurchaseOrder.order_date, PurchaseOrder.promised_arrival_date, Shipment.actual_delivery_date, Shipment.order_date, Shipment.promised_delivery_date. Wrap in date(...) before comparing to date() or duration arithmetic — comparing the raw string silently matches nothing.
+
+FEW-SHOT EXAMPLES KEPT (18 / 18):
+  - USER INPUT: 'Which suppliers ship to DC_EAST?' QUERY: MATCH (s:Supplier)-[:SHIPS_TO]->(dc:DistributionCenter {id: 'DC_EAST'}) RETURN s.id, s.name, s.tier
+  - USER INPUT: 'List all interventions that do not require approval.' QUERY: MATCH (i:Intervention {approval_required: false}) RETURN i.id, i.name, i.action_owner, i.lead_time_days
+  - USER INPUT: 'Which causal drivers can eventually lead to an increase in stockout_rate?' QUERY: MATCH (d:CausalDriver)-[:CAUSES|CONTRIBUTES_TO*1..5]->(k:KPI {id: 'stockout_rate'}) RETURN DISTINCT d.id, d.name
+  - USER INPUT: 'What interventions mitigate supplier lead time delay?' QUERY: MATCH (i:Intervention)-[:MITIGATES]->(d {id: 'supplier_lead_time_delay'}) RETURN i.id, i.name, i.approval_required, i.action_owner
+  - USER INPUT: 'Which purchase orders were delayed by more than 5 days?' QUERY: MATCH (po:PurchaseOrder) WHERE po.delay_days > 5 RETURN po.id, po.sku_id, po.supplier_id, po.delay_days ORDER BY po.delay_days DESC
+  - USER INPUT: 'How many inventory snapshots for SKU_1002 were below safety stock?' QUERY: MATCH (inv:InventorySnapshot {sku_id: 'SKU_1002', is_below_safety_stock: true}) RETURN count(inv) AS below_safety_stock_count
+  - USER INPUT: 'Show evidence records supporting the port_congestion driver, most recent first.' QUERY: MATCH (e)-[:EVIDENCES]->(d:CausalDriver {id: 'port_congestion'}) RETURN e.id, e.evidence_type, e.severity, e.confidence, e.date ORDER BY e.date DESC
+  - USER INPUT: 'What is the average forecast error percentage for SKU_1001 at DC_WEST?' QUERY: MATCH (f:DemandForecastSnapshot {sku_id: 'SKU_1001', dc_id: 'DC_WEST'}) RETURN avg(f.forecast_error_pct) AS avg_forecast_error_pct
+  - USER INPUT: 'List every KPI and its directionality.' QUERY: MATCH (k:KPI) RETURN k.id, k.name, k.directionality
+  - USER INPUT: 'Which SKUs are stored at more than one distribution center?' QUERY: MATCH (s:SKU)-[:STORED_AT]->(dc:DistributionCenter) WITH s, count(dc) AS dc_count WHERE dc_count > 1 RETURN s.id, dc_count
+  - USER INPUT: 'Which ports have a high risk level?' QUERY: MATCH (p:Port {risk_level: 'high'}) RETURN p.id, p.name, p.country, p.avg_dwell_days
+  - USER INPUT: 'List transport lanes that are not the primary lane.' QUERY: MATCH (l:TransportLane {is_primary: false}) RETURN l.id, l.name, l.origin_port, l.destination_dc, l.mode, l.cost_premium_pct
+  - USER INPUT: 'Show inventory snapshots for SKU_1002 at DC_EAST from the last 14 days.' QUERY: MATCH (i:InventorySnapshot {sku_id: 'SKU_1002', dc_id: 'DC_EAST'}) WHERE date(i.date) >= date() - duration('P14D') RETURN i.id, i.date, i.on_hand_units, i.inventory_cover_days, i.is_below_safety_stock ORDER BY i.date DESC
+  - USER INPUT: 'What was the average forecast error for SKU_1001 at DC_WEST over the last 30 days?' QUERY: MATCH (f:DemandForecastSnapshot {sku_id: 'SKU_1001', dc_id: 'DC_WEST'}) WHERE date(f.date) >= date() - duration('P30D') RETURN avg(f.forecast_error_pct) AS avg_forecast_error_pct
+  - USER INPUT: 'How did fill_rate change for SKU_1001 at DC_WEST over the last 30 days?' QUERY: MATCH (o:KPIObservation {sku_id: 'SKU_1001', dc_id: 'DC_WEST', kpi_id: 'fill_rate'}) WHERE date(o.date) >= date() - duration('P30D') RETURN o.date, o.value, o.threshold_breached ORDER BY o.date DESC
+  - USER INPUT: 'Which distribution centers have low on-time in-full delivery?' QUERY: MATCH (o:KPIObservation {kpi_id: 'otifd', threshold_breached: true}) RETURN DISTINCT o.dc_id, o.sku_id, o.date, o.value ORDER BY o.date DESC
+  - USER INPUT: 'Show evidence of supplier delay affecting DC_EAST in the last 60 days.' QUERY: MATCH (e)-[ev:EVIDENCES {evidence_type: 'supplier_delay'}]->(d) WHERE date(ev.date) >= date() - duration('P60D') RETURN e.id, d.id AS driver, ev.severity, ev.observed_value, ev.threshold_value, ev.date ORDER BY ev.date DESC
+  - USER INPUT: 'Which shipments to DC_EAST were not on-time-in-full in the last 21 days?' QUERY: MATCH (sh:Shipment {dc_id: 'DC_EAST', otif_flag: false}) WHERE date(sh.actual_delivery_date) >= date() - duration('P21D') RETURN sh.id, sh.sku_id, sh.customer_id, sh.promised_delivery_date, sh.actual_delivery_date ORDER BY sh.actual_delivery_date DESC
+
+FEW-SHOT EXAMPLES DROPPED as stale (0):
+  (none)
+
+[auto: new graph connection detected — neo4j://127.0.0.1:7687|neo4j]
+====================================================================================================
+Timestamp: 2026-07-07T18:21:34.198291+00:00
+
+Labels: 27   Relationships: 14   Enum-annotated properties: 202
+
+ENUM VALUES SAMPLED LIVE (label.property: values):
+  - Carrier.id: ['Carrier_DHL', 'Carrier_Maersk', 'Carrier_UPS']
+  - Carrier.label: ['Carrier']
+  - Carrier.mode: ['air', 'ground', 'sea']
+  - Carrier.name: ['DHL Express', 'Maersk Line', 'UPS Supply Chain']
+  - Carrier.ontology_version: ['2.0.0']
+  - Carrier.source_file: ['logistics_network.yaml']
+  - CausalDriver.domain: ['commercial', 'compliance', 'logistics', 'planning', 'procurement', 'quality', 'warehousing']
+  - CausalDriver.label: ['CausalDriver']
+  - CausalDriver.ontology_version: ['2.0.0']
+  - CausalDriver.rca_relevance: ['high', 'medium']
+  - CausalDriver.source_file: ['nodes.yaml']
+  - CausalMediator.id: ['excess_inventory', 'inventory_depletion', 'low_dc_inventory', 'low_inventory_cover', 'replenishment_delay']
+  - CausalMediator.label: ['IntermediateFactor']
+  - CausalMediator.name: ['Excess Inventory', 'Inventory Depletion', 'Low DC Inventory', 'Low Inventory Cover', 'Replenishment Delay']
+  - CausalMediator.ontology_version: ['2.0.0']
+  - CausalMediator.source_file: ['nodes.yaml']
+  - ComplianceRequirement.id: ['regulatory_compliance_risk']
+  - ComplianceRequirement.label: ['ComplianceRequirement']
+  - ComplianceRequirement.name: ['Regulatory Compliance Risk']
+  - ComplianceRequirement.ontology_version: ['2.0.0']
+  - ComplianceRequirement.regulation: ['multi_jurisdiction']
+  - ComplianceRequirement.risk_category: ['compliance']
+  - ComplianceRequirement.source_file: ['risk_taxonomy.yaml']
+  - Customer.channel: ['Ecommerce', 'Retail', 'Wholesale']
+  - Customer.label: ['Customer']
+  - Customer.ontology_version: ['2.0.0']
+  - Customer.region: ['Central', 'East', 'South', 'West']
+  - Customer.source_file: ['instance_nodes.yaml']
+  - Customer.tier: ['Bronze', 'Gold', 'Silver']
+  - DemandForecastSnapshot.bias_direction: ['none', 'over', 'under']
+  - DemandForecastSnapshot.dc_id: ['DC_EAST', 'DC_WEST']
+  - DemandForecastSnapshot.grain: ['sku_dc_day']
+  - DemandForecastSnapshot.label: ['DemandForecastSnapshot']
+  - DemandForecastSnapshot.ontology_version: ['2.0.0']
+  - DemandForecastSnapshot.sku_id: ['SKU_1001', 'SKU_1002']
+  - DemandForecastSnapshot.source_file: ['instance_nodes.yaml']
+  - DemandRisk.id: ['demand_volatility_risk']
+  - DemandRisk.label: ['DemandRisk']
+  - DemandRisk.name: ['Demand Volatility Risk']
+  - DemandRisk.ontology_version: ['2.0.0']
+  - DemandRisk.risk_category: ['commercial']
+  - DemandRisk.source_file: ['risk_taxonomy.yaml']
+  - DistributionCenter.country: ['US']
+  - DistributionCenter.id: ['DC_EAST', 'DC_WEST']
+  - DistributionCenter.label: ['DistributionCenter']
+  - DistributionCenter.name: ['East Distribution Center', 'West Distribution Center']
+  - DistributionCenter.ontology_version: ['2.0.0']
+  - DistributionCenter.region: ['East', 'West']
+  - DistributionCenter.source_file: ['nodes.yaml']
+  - ForecastProjection.as_of_date: ['2026-07-07']
+  - ForecastProjection.dc_id: ['DC_EAST', 'DC_WEST']
+  - ForecastProjection.driver_id: ['demand_spike', 'forecast_error', 'low_dc_inventory', 'supplier_lead_time_delay']
+  - ForecastProjection.forecast_method: ['naive_trend_projection']
+  - ForecastProjection.grain: ['sku_dc_driver_horizon']
+  - ForecastProjection.label: ['ForecastProjection']
+  - ForecastProjection.metric: ['dc_on_hand_units', 'demand_units', 'forecast_error_pct', 'supplier_lead_time_days']
+  - ForecastProjection.ontology_version: ['2.0.0']
+  - ForecastProjection.sku_id: ['SKU_1001', 'SKU_1002']
+  - ForecastProjection.source_file: ['forecast_projection_nodes.yaml']
+  - ForecastProjection.target_date: ['2026-07-14', '2026-07-21']
+  - GeopoliticalRisk.id: ['geopolitical_risk']
+  - GeopoliticalRisk.label: ['GeopoliticalRisk']
+  - GeopoliticalRisk.name: ['Geopolitical Risk']
+  - GeopoliticalRisk.ontology_version: ['2.0.0']
+  - GeopoliticalRisk.risk_category: ['external']
+  - GeopoliticalRisk.source_file: ['risk_taxonomy.yaml']
+  - GoldTable.catalog: ['supply_chain']
+  - GoldTable.grain: ['order_line_day', 'shipment_day', 'sku_dc_day', 'sku_supplier_day']
+  - GoldTable.label: ['GoldTable']
+  - GoldTable.ontology_version: ['2.0.0']
+  - GoldTable.schema: ['gold']
+  - GoldTable.source_file: ['nodes.yaml']
+  - GraphNode.action_owner: ['DC Operations', 'Demand Planning', 'Logistics', 'Procurement', 'Supply Planning']
+  - GraphNode.as_of_date: ['2026-07-07']
+  - GraphNode.bias_direction: ['none', 'over', 'under']
+  - GraphNode.catalog: ['supply_chain']
+  - GraphNode.category: ['Beverages', 'Finished Goods', 'Grocery', 'Raw Materials']
+  - GraphNode.channel: ['Ecommerce', 'Retail', 'Wholesale']
+  - GraphNode.country: ['CN', 'NL', 'US']
+  - GraphNode.country_of_origin: ['CN', 'IN', 'US']
+  - GraphNode.dc_id: ['DC_EAST', 'DC_WEST']
+  - GraphNode.destination_dc: ['DC_EAST']
+  - GraphNode.directionality: ['higher_is_better', 'lower_is_better']
+  - GraphNode.domain: ['commercial', 'compliance', 'logistics', 'planning', 'procurement', 'quality', 'warehousing']
+  - GraphNode.driver_id: ['demand_spike', 'forecast_error', 'low_dc_inventory', 'supplier_lead_time_delay']
+  - GraphNode.forecast_method: ['naive_trend_projection']
+  - GraphNode.grain: ['order_line_day', 'shipment_day', 'sku_dc_day', 'sku_dc_driver_horizon', 'sku_supplier_day']
+  - GraphNode.kpi_id: ['days_of_supply', 'fill_rate', 'otifd', 'perfect_order_rate', 'stockout_rate', 'supplier_otd']
+  - GraphNode.metric: ['dc_on_hand_units', 'demand_units', 'forecast_error_pct', 'supplier_lead_time_days']
+  - GraphNode.mode: ['air', 'ground', 'sea']
+  - GraphNode.ontology_version: ['2.0.0']
+  - GraphNode.origin_port: ['port_shanghai']
+  - GraphNode.outcome_column: ['fill_rate_flag', 'inventory_cover_days', 'otifd_flag', 'stockout_flag', 'supplier_otd_flag']
+  - GraphNode.rca_relevance: ['high', 'medium']
+  - GraphNode.region: ['Central', 'East', 'South', 'West']
+  - GraphNode.regulation: ['multi_jurisdiction']
+  - GraphNode.risk_category: ['commercial', 'compliance', 'external', 'operational', 'structural']
+  - GraphNode.risk_level: ['high', 'low', 'medium']
+  - GraphNode.schema: ['gold']
+  - GraphNode.sku_id: ['SKU_1001', 'SKU_1002']
+  - GraphNode.source_file: ['forecast_projection_nodes.yaml', 'incremental_sync', 'instance_nodes.yaml', 'logistics_network.yaml', 'nodes.yaml', 'risk_taxonomy.yaml']
+  - GraphNode.status: ['delayed', 'delivered', 'delivered_late']
+  - GraphNode.supplier_id: ['Supplier_A', 'Supplier_C']
+  - GraphNode.target_date: ['2026-07-14', '2026-07-21']
+  - InstanceRecord.bias_direction: ['none', 'over', 'under']
+  - InstanceRecord.dc_id: ['DC_EAST', 'DC_WEST']
+  - InstanceRecord.grain: ['order_line_day', 'sku_dc_day']
+  - InstanceRecord.kpi_id: ['days_of_supply', 'fill_rate', 'otifd', 'perfect_order_rate', 'stockout_rate', 'supplier_otd']
+  - InstanceRecord.label: ['DemandForecastSnapshot', 'InventorySnapshot', 'KPIObservation', 'PurchaseOrder', 'Shipment']
+  - InstanceRecord.ontology_version: ['2.0.0']
+  - InstanceRecord.sku_id: ['SKU_1001', 'SKU_1002']
+  - InstanceRecord.source_file: ['incremental_sync', 'instance_nodes.yaml']
+  - InstanceRecord.status: ['delayed', 'delivered', 'delivered_late']
+  - InstanceRecord.supplier_id: ['Supplier_A', 'Supplier_C']
+  - IntermediateFactor.id: ['excess_inventory', 'inventory_depletion', 'low_dc_inventory', 'low_inventory_cover', 'replenishment_delay']
+  - IntermediateFactor.label: ['IntermediateFactor']
+  - IntermediateFactor.name: ['Excess Inventory', 'Inventory Depletion', 'Low DC Inventory', 'Low Inventory Cover', 'Replenishment Delay']
+  - IntermediateFactor.ontology_version: ['2.0.0']
+  - IntermediateFactor.source_file: ['nodes.yaml']
+  - Intervention.action_owner: ['DC Operations', 'Demand Planning', 'Logistics', 'Procurement', 'Supply Planning']
+  - Intervention.id: ['activate_alternate_supplier', 'adjust_replenishment_frequency', 'air_freight_escalation', 'expedite_po', 'increase_safety_stock', 'override_forecast', 'port_diversion', 'rebalance_inventory']
+  - Intervention.label: ['Intervention']
+  - Intervention.name: ['Activate Alternate Supplier', 'Adjust Replenishment Frequency', 'Air Freight Escalation', 'Expedite PO', 'Increase Safety Stock', 'Override Forecast', 'Port Diversion', 'Rebalance Inventory']
+  - Intervention.ontology_version: ['2.0.0']
+  - Intervention.source_file: ['nodes.yaml']
+  - InventorySnapshot.dc_id: ['DC_EAST', 'DC_WEST']
+  - InventorySnapshot.grain: ['sku_dc_day']
+  - InventorySnapshot.label: ['InventorySnapshot']
+  - InventorySnapshot.ontology_version: ['2.0.0']
+  - InventorySnapshot.sku_id: ['SKU_1001', 'SKU_1002']
+  - InventorySnapshot.source_file: ['incremental_sync', 'instance_nodes.yaml']
+  - KPI.directionality: ['higher_is_better', 'lower_is_better']
+  - KPI.id: ['days_of_supply', 'fill_rate', 'otifd', 'perfect_order_rate', 'stockout_rate', 'supplier_otd']
+  - KPI.label: ['KPI']
+  - KPI.name: ['Days of Supply', 'Fill Rate', 'On-Time In-Full Delivery', 'Perfect Order Rate', 'Stockout Rate', 'Supplier On-Time Delivery']
+  - KPI.ontology_version: ['2.0.0']
+  - KPI.outcome_column: ['fill_rate_flag', 'inventory_cover_days', 'otifd_flag', 'stockout_flag', 'supplier_otd_flag']
+  - KPI.source_file: ['nodes.yaml']
+  - KPIObservation.dc_id: ['DC_EAST', 'DC_WEST']
+  - KPIObservation.grain: ['sku_dc_day']
+  - KPIObservation.kpi_id: ['days_of_supply', 'fill_rate', 'otifd', 'perfect_order_rate', 'stockout_rate', 'supplier_otd']
+  - KPIObservation.label: ['KPIObservation']
+  - KPIObservation.ontology_version: ['2.0.0']
+  - KPIObservation.sku_id: ['SKU_1001', 'SKU_1002']
+  - KPIObservation.source_file: ['incremental_sync', 'instance_nodes.yaml']
+  - LogisticsRisk.id: ['logistics_disruption_risk']
+  - LogisticsRisk.label: ['LogisticsRisk']
+  - LogisticsRisk.name: ['Logistics Disruption Risk']
+  - LogisticsRisk.ontology_version: ['2.0.0']
+  - LogisticsRisk.risk_category: ['operational']
+  - LogisticsRisk.source_file: ['risk_taxonomy.yaml']
+  - Port.country: ['CN', 'NL', 'US']
+  - Port.id: ['port_los_angeles', 'port_rotterdam', 'port_shanghai']
+  - Port.label: ['Port']
+  - Port.name: ['Port of Los Angeles', 'Port of Rotterdam', 'Port of Shanghai']
+  - Port.ontology_version: ['2.0.0']
+  - Port.risk_level: ['high', 'low', 'medium']
+  - Port.source_file: ['logistics_network.yaml']
+  - PurchaseOrder.dc_id: ['DC_EAST', 'DC_WEST']
+  - PurchaseOrder.label: ['PurchaseOrder']
+  - PurchaseOrder.ontology_version: ['2.0.0']
+  - PurchaseOrder.sku_id: ['SKU_1001']
+  - PurchaseOrder.source_file: ['instance_nodes.yaml']
+  - PurchaseOrder.status: ['delayed', 'delivered', 'delivered_late']
+  - PurchaseOrder.supplier_id: ['Supplier_A', 'Supplier_C']
+  - RiskNode.id: ['demand_volatility_risk', 'geopolitical_risk', 'logistics_disruption_risk', 'regulatory_compliance_risk', 'supply_concentration_risk']
+  - RiskNode.label: ['ComplianceRequirement', 'DemandRisk', 'GeopoliticalRisk', 'LogisticsRisk', 'SupplyRisk']
+  - RiskNode.ontology_version: ['2.0.0']
+  - RiskNode.regulation: ['multi_jurisdiction']
+  - RiskNode.risk_category: ['commercial', 'compliance', 'external', 'operational', 'structural']
+  - RiskNode.source_file: ['risk_taxonomy.yaml']
+  - SKU.category: ['Beverages', 'Grocery']
+  - SKU.id: ['SKU_1001', 'SKU_1002']
+  - SKU.label: ['SKU']
+  - SKU.name: ['SKU 1001', 'SKU 1002']
+  - SKU.ontology_version: ['2.0.0']
+  - SKU.source_file: ['nodes.yaml']
+  - Shipment.dc_id: ['DC_EAST', 'DC_WEST']
+  - Shipment.grain: ['order_line_day']
+  - Shipment.label: ['Shipment']
+  - Shipment.ontology_version: ['2.0.0']
+  - Shipment.sku_id: ['SKU_1001', 'SKU_1002']
+  - Shipment.source_file: ['instance_nodes.yaml']
+  - Supplier.category: ['Finished Goods', 'Raw Materials']
+  - Supplier.country_of_origin: ['CN', 'IN', 'US']
+  - Supplier.id: ['Supplier_A', 'Supplier_B', 'Supplier_C']
+  - Supplier.label: ['Supplier']
+  - Supplier.name: ['Supplier A', 'Supplier B', 'Supplier C (Backup)']
+  - Supplier.ontology_version: ['2.0.0']
+  - Supplier.source_file: ['nodes.yaml']
+  - SupplyRisk.id: ['supply_concentration_risk']
+  - SupplyRisk.label: ['SupplyRisk']
+  - SupplyRisk.ontology_version: ['2.0.0']
+  - SupplyRisk.risk_category: ['structural']
+  - SupplyRisk.source_file: ['risk_taxonomy.yaml']
+  - TransportLane.destination_dc: ['DC_EAST']
+  - TransportLane.id: ['lane_shanghai_dc_east', 'lane_shanghai_dc_east_air']
+  - TransportLane.label: ['TransportLane']
+  - TransportLane.mode: ['air', 'sea']
+  - TransportLane.ontology_version: ['2.0.0']
+  - TransportLane.origin_port: ['port_shanghai']
+  - TransportLane.source_file: ['logistics_network.yaml']
+
+RENDERED SCHEMA TEXT (what NL2CypherEngine hands the LLM as neo4j_schema):
+Node properties:
+Carrier {id: STRING ['Carrier_DHL', 'Carrier_Maersk', 'Carrier_UPS'], label: STRING ['Carrier'], mode: STRING ['air', 'ground', 'sea'], name: STRING ['DHL Express', 'Maersk Line', 'UPS Supply Chain'], ontology_version: STRING ['2.0.0'], reliability_score: FLOAT, source_file: STRING ['logistics_network.yaml'], updated_at: DATE_TIME}
+CausalDriver {description: STRING, domain: STRING ['commercial', 'compliance', 'logistics', 'planning', 'procurement', 'quality', 'warehousing'], id: STRING, label: STRING ['CausalDriver'], name: STRING, ontology_version: STRING ['2.0.0'], rca_relevance: STRING ['high', 'medium'], source_file: STRING ['nodes.yaml'], updated_at: DATE_TIME}
+CausalMediator {description: STRING, id: STRING ['excess_inventory', 'inventory_depletion', 'low_dc_inventory', 'low_inventory_cover', 'replenishment_delay'], label: STRING ['IntermediateFactor'], name: STRING ['Excess Inventory', 'Inventory Depletion', 'Low DC Inventory', 'Low Inventory Cover', 'Replenishment Delay'], ontology_version: STRING ['2.0.0'], source_file: STRING ['nodes.yaml'], updated_at: DATE_TIME}
+ComplianceRequirement {description: STRING, id: STRING ['regulatory_compliance_risk'], label: STRING ['ComplianceRequirement'], name: STRING ['Regulatory Compliance Risk'], ontology_version: STRING ['2.0.0'], regulation: STRING ['multi_jurisdiction'], risk_category: STRING ['compliance'], source_file: STRING ['risk_taxonomy.yaml'], updated_at: DATE_TIME}
+Customer {channel: STRING ['Ecommerce', 'Retail', 'Wholesale'], description: STRING, id: STRING, label: STRING ['Customer'], name: STRING, ontology_version: STRING ['2.0.0'], region: STRING ['Central', 'East', 'South', 'West'], source_file: STRING ['instance_nodes.yaml'], tier: STRING ['Bronze', 'Gold', 'Silver'], updated_at: DATE_TIME}
+DemandForecastSnapshot {actual_demand_units: INTEGER, bias_direction: STRING ['none', 'over', 'under'], date: STRING, dc_id: STRING ['DC_EAST', 'DC_WEST'], description: STRING, forecast_error_pct: FLOAT, forecast_units: INTEGER, grain: STRING ['sku_dc_day'], id: STRING, label: STRING ['DemandForecastSnapshot'], name: STRING, ontology_version: STRING ['2.0.0'], promotion_flag: BOOLEAN, sku_id: STRING ['SKU_1001', 'SKU_1002'], source_file: STRING ['instance_nodes.yaml'], updated_at: DATE_TIME}
+DemandRisk {description: STRING, id: STRING ['demand_volatility_risk'], label: STRING ['DemandRisk'], name: STRING ['Demand Volatility Risk'], ontology_version: STRING ['2.0.0'], risk_category: STRING ['commercial'], source_file: STRING ['risk_taxonomy.yaml'], updated_at: DATE_TIME}
+DistributionCenter {country: STRING ['US'], description: STRING, id: STRING ['DC_EAST', 'DC_WEST'], label: STRING ['DistributionCenter'], name: STRING ['East Distribution Center', 'West Distribution Center'], ontology_version: STRING ['2.0.0'], region: STRING ['East', 'West'], source_file: STRING ['nodes.yaml'], updated_at: DATE_TIME}
+ForecastProjection {as_of_date: STRING ['2026-07-07'], baseline_value: FLOAT, confidence_high: FLOAT, confidence_low: FLOAT, dc_id: STRING ['DC_EAST', 'DC_WEST'], description: STRING, driver_id: STRING ['demand_spike', 'forecast_error', 'low_dc_inventory', 'supplier_lead_time_delay'], forecast_method: STRING ['naive_trend_projection'], grain: STRING ['sku_dc_driver_horizon'], horizon_days: INTEGER, id: STRING, label: STRING ['ForecastProjection'], metric: STRING ['dc_on_hand_units', 'demand_units', 'forecast_error_pct', 'supplier_lead_time_days'], name: STRING, ontology_version: STRING ['2.0.0'], projected_delta: FLOAT, projected_delta_pct: FLOAT, projected_value: FLOAT, sku_id: STRING ['SKU_1001', 'SKU_1002'], source_file: STRING ['forecast_projection_nodes.yaml'], target_date: STRING ['2026-07-14', '2026-07-21'], updated_at: DATE_TIME}
+GeopoliticalRisk {description: STRING, id: STRING ['geopolitical_risk'], impact_horizon_days: INTEGER, label: STRING ['GeopoliticalRisk'], name: STRING ['Geopolitical Risk'], ontology_version: STRING ['2.0.0'], risk_category: STRING ['external'], source_file: STRING ['risk_taxonomy.yaml'], updated_at: DATE_TIME}
+GoldTable {catalog: STRING ['supply_chain'], description: STRING, grain: STRING ['order_line_day', 'shipment_day', 'sku_dc_day', 'sku_supplier_day'], id: STRING, label: STRING ['GoldTable'], name: STRING, ontology_version: STRING ['2.0.0'], schema: STRING ['gold'], source_file: STRING ['nodes.yaml'], updated_at: DATE_TIME}
+Intervention {action_owner: STRING ['DC Operations', 'Demand Planning', 'Logistics', 'Procurement', 'Supply Planning'], approval_required: BOOLEAN, description: STRING, id: STRING ['activate_alternate_supplier', 'adjust_replenishment_frequency', 'air_freight_escalation', 'expedite_po', 'increase_safety_stock', 'override_forecast', 'port_diversion', 'rebalance_inventory'], label: STRING ['Intervention'], lead_time_days: INTEGER, name: STRING ['Activate Alternate Supplier', 'Adjust Replenishment Frequency', 'Air Freight Escalation', 'Expedite PO', 'Increase Safety Stock', 'Override Forecast', 'Port Diversion', 'Rebalance Inventory'], ontology_version: STRING ['2.0.0'], source_file: STRING ['nodes.yaml'], updated_at: DATE_TIME}
+InventorySnapshot {avg_daily_demand_units: INTEGER, date: STRING, dc_id: STRING ['DC_EAST', 'DC_WEST'], description: STRING, grain: STRING ['sku_dc_day'], id: STRING, inventory_cover_days: FLOAT, is_below_safety_stock: BOOLEAN, label: STRING ['InventorySnapshot'], name: STRING, on_hand_units: INTEGER, ontology_version: STRING ['2.0.0'], safety_stock_units: INTEGER, sku_id: STRING ['SKU_1001', 'SKU_1002'], source_file: STRING ['incremental_sync', 'instance_nodes.yaml'], updated_at: DATE_TIME}
+KPI {description: STRING, directionality: STRING ['higher_is_better', 'lower_is_better'], gold_table: STRING, id: STRING ['days_of_supply', 'fill_rate', 'otifd', 'perfect_order_rate', 'stockout_rate', 'supplier_otd'], label: STRING ['KPI'], name: STRING ['Days of Supply', 'Fill Rate', 'On-Time In-Full Delivery', 'Perfect Order Rate', 'Stockout Rate', 'Supplier On-Time Delivery'], ontology_version: STRING ['2.0.0'], outcome_column: STRING ['fill_rate_flag', 'inventory_cover_days', 'otifd_flag', 'stockout_flag', 'supplier_otd_flag'], source_file: STRING ['nodes.yaml'], updated_at: DATE_TIME}
+KPIObservation {date: STRING, dc_id: STRING ['DC_EAST', 'DC_WEST'], description: STRING, grain: STRING ['sku_dc_day'], id: STRING, kpi_id: STRING ['days_of_supply', 'fill_rate', 'otifd', 'perfect_order_rate', 'stockout_rate', 'supplier_otd'], label: STRING ['KPIObservation'], name: STRING, ontology_version: STRING ['2.0.0'], sku_id: STRING ['SKU_1001', 'SKU_1002'], source_file: STRING ['incremental_sync', 'instance_nodes.yaml'], threshold_breached: BOOLEAN, updated_at: DATE_TIME, value: FLOAT}
+LogisticsRisk {description: STRING, id: STRING ['logistics_disruption_risk'], label: STRING ['LogisticsRisk'], name: STRING ['Logistics Disruption Risk'], ontology_version: STRING ['2.0.0'], risk_category: STRING ['operational'], source_file: STRING ['risk_taxonomy.yaml'], updated_at: DATE_TIME}
+Port {avg_dwell_days: FLOAT, country: STRING ['CN', 'NL', 'US'], id: STRING ['port_los_angeles', 'port_rotterdam', 'port_shanghai'], label: STRING ['Port'], name: STRING ['Port of Los Angeles', 'Port of Rotterdam', 'Port of Shanghai'], ontology_version: STRING ['2.0.0'], risk_level: STRING ['high', 'low', 'medium'], source_file: STRING ['logistics_network.yaml'], updated_at: DATE_TIME}
+PurchaseOrder {actual_arrival_date: STRING, dc_id: STRING ['DC_EAST', 'DC_WEST'], delay_days: INTEGER, description: STRING, id: STRING, label: STRING ['PurchaseOrder'], lead_time_days_actual: INTEGER, lead_time_days_planned: INTEGER, name: STRING, ontology_version: STRING ['2.0.0'], order_date: STRING, promised_arrival_date: STRING, quantity_ordered: INTEGER, quantity_received: INTEGER, sku_id: STRING ['SKU_1001'], source_file: STRING ['instance_nodes.yaml'], status: STRING ['delayed', 'delivered', 'delivered_late'], supplier_id: STRING ['Supplier_A', 'Supplier_C'], updated_at: DATE_TIME}
+SKU {category: STRING ['Beverages', 'Grocery'], description: STRING, id: STRING ['SKU_1001', 'SKU_1002'], label: STRING ['SKU'], name: STRING ['SKU 1001', 'SKU 1002'], ontology_version: STRING ['2.0.0'], source_file: STRING ['nodes.yaml'], updated_at: DATE_TIME}
+Shipment {actual_delivery_date: STRING, customer_id: STRING, dc_id: STRING ['DC_EAST', 'DC_WEST'], description: STRING, grain: STRING ['order_line_day'], id: STRING, label: STRING ['Shipment'], name: STRING, ontology_version: STRING ['2.0.0'], order_date: STRING, otif_flag: BOOLEAN, perfect_order_flag: BOOLEAN, promised_delivery_date: STRING, quantity_ordered: INTEGER, quantity_shipped: INTEGER, sku_id: STRING ['SKU_1001', 'SKU_1002'], source_file: STRING ['instance_nodes.yaml'], updated_at: DATE_TIME}
+Supplier {category: STRING ['Finished Goods', 'Raw Materials'], country_of_origin: STRING ['CN', 'IN', 'US'], description: STRING, id: STRING ['Supplier_A', 'Supplier_B', 'Supplier_C'], is_backup: BOOLEAN, label: STRING ['Supplier'], name: STRING ['Supplier A', 'Supplier B', 'Supplier C (Backup)'], ontology_version: STRING ['2.0.0'], source_file: STRING ['nodes.yaml'], tier: INTEGER, updated_at: DATE_TIME}
+SupplyRisk {description: STRING, id: STRING ['supply_concentration_risk'], label: STRING ['SupplyRisk'], name: STRING, ontology_version: STRING ['2.0.0'], risk_category: STRING ['structural'], source_file: STRING ['risk_taxonomy.yaml'], updated_at: DATE_TIME}
+TransportLane {avg_transit_days: INTEGER, cost_premium_pct: INTEGER, destination_dc: STRING ['DC_EAST'], id: STRING ['lane_shanghai_dc_east', 'lane_shanghai_dc_east_air'], is_primary: BOOLEAN, label: STRING ['TransportLane'], mode: STRING ['air', 'sea'], name: STRING, ontology_version: STRING ['2.0.0'], origin_port: STRING ['port_shanghai'], source_file: STRING ['logistics_network.yaml'], updated_at: DATE_TIME}
+
+Relationship properties:
+AT_DC {id: STRING, ontology_version: STRING, source: STRING, source_file: STRING, target: STRING, updated_at: DATE_TIME}
+CAUSES {applicable_grains: LIST, applicable_kpis: LIST, ate_ci_lower: FLOAT, ate_ci_upper: FLOAT, ate_estimate: FLOAT, confidence: FLOAT, evidence_type: STRING, id: STRING, is_validated: BOOLEAN, lag_days_max: INTEGER, lag_days_min: INTEGER, ontology_version: STRING, provenance: STRING, source: STRING, source_file: STRING, target: STRING, updated_at: DATE_TIME}
+CONTRIBUTES_TO {applicable_kpis: LIST, confidence: FLOAT, evidence_type: STRING, id: STRING, is_validated: BOOLEAN, ontology_version: STRING, source: STRING, source_file: STRING, target: STRING, updated_at: DATE_TIME}
+EVIDENCES {confidence: FLOAT, date: STRING, evidence_type: STRING, id: STRING, observed_value: FLOAT, ontology_version: STRING, severity: STRING, source: STRING, source_file: STRING, source_record_id: STRING, source_table: STRING, target: STRING, threshold_value: FLOAT, updated_at: DATE_TIME}
+FOR_DRIVER {id: STRING, ontology_version: STRING, source: STRING, source_file: STRING, target: STRING, updated_at: DATE_TIME}
+FOR_SKU {id: STRING, ontology_version: STRING, source: STRING, source_file: STRING, target: STRING, updated_at: DATE_TIME}
+FROM_SUPPLIER {id: STRING, ontology_version: STRING, source: STRING, source_file: STRING, target: STRING, updated_at: DATE_TIME}
+MITIGATES {id: STRING, ontology_version: STRING, source: STRING, source_file: STRING, target: STRING, updated_at: DATE_TIME}
+OBSERVES_KPI {id: STRING, ontology_version: STRING, source: STRING, source_file: STRING, target: STRING, updated_at: DATE_TIME}
+SHIPS_TO {id: STRING, ontology_version: STRING, source: STRING, source_file: STRING, target: STRING, updated_at: DATE_TIME}
+STORED_AT {id: STRING, ontology_version: STRING, source: STRING, source_file: STRING, target: STRING, updated_at: DATE_TIME}
+SUPPLIED_BY {id: STRING, ontology_version: STRING, source: STRING, source_file: STRING, target: STRING, updated_at: DATE_TIME}
+SUPPLIES_TO {id: STRING, ontology_version: STRING, source: STRING, source_file: STRING, target: STRING, updated_at: DATE_TIME}
+TO_CUSTOMER {id: STRING, ontology_version: STRING, source: STRING, source_file: STRING, target: STRING, updated_at: DATE_TIME}
+
+The relationships:
+(:CausalDriver)-[:CAUSES]->(:CausalDriver)
+(:CausalDriver)-[:CAUSES]->(:CausalMediator)
+(:CausalDriver)-[:CAUSES]->(:KPI)
+(:CausalDriver)-[:CONTRIBUTES_TO]->(:CausalDriver)
+(:CausalMediator)-[:CAUSES]->(:CausalMediator)
+(:CausalMediator)-[:CAUSES]->(:KPI)
+(:DemandForecastSnapshot)-[:AT_DC]->(:DistributionCenter)
+(:DemandForecastSnapshot)-[:EVIDENCES]->(:CausalDriver)
+(:DemandForecastSnapshot)-[:FOR_SKU]->(:SKU)
+(:ForecastProjection)-[:AT_DC]->(:DistributionCenter)
+(:ForecastProjection)-[:FOR_DRIVER]->(:CausalDriver)
+(:ForecastProjection)-[:FOR_DRIVER]->(:CausalMediator)
+(:ForecastProjection)-[:FOR_SKU]->(:SKU)
+(:Intervention)-[:MITIGATES]->(:CausalDriver)
+(:Intervention)-[:MITIGATES]->(:CausalMediator)
+(:InventorySnapshot)-[:AT_DC]->(:DistributionCenter)
+(:InventorySnapshot)-[:EVIDENCES]->(:CausalMediator)
+(:InventorySnapshot)-[:FOR_SKU]->(:SKU)
+(:KPIObservation)-[:AT_DC]->(:DistributionCenter)
+(:KPIObservation)-[:FOR_SKU]->(:SKU)
+(:KPIObservation)-[:OBSERVES_KPI]->(:KPI)
+(:PurchaseOrder)-[:AT_DC]->(:DistributionCenter)
+(:PurchaseOrder)-[:EVIDENCES]->(:CausalDriver)
+(:PurchaseOrder)-[:FOR_SKU]->(:SKU)
+(:PurchaseOrder)-[:FROM_SUPPLIER]->(:Supplier)
+(:SKU)-[:STORED_AT]->(:DistributionCenter)
+(:SKU)-[:SUPPLIED_BY]->(:Supplier)
+(:Shipment)-[:AT_DC]->(:DistributionCenter)
+(:Shipment)-[:FOR_SKU]->(:SKU)
+(:Shipment)-[:TO_CUSTOMER]->(:Customer)
+(:Supplier)-[:SHIPS_TO]->(:DistributionCenter)
+(:Supplier)-[:SUPPLIES_TO]->(:Supplier)
+
+Note: GraphNode is a shared base label across 24 node types (Carrier, CausalDriver, CausalMediator, ComplianceRequirement, Customer, DemandForecastSnapshot, DemandRisk, DistributionCenter, ForecastProjection, GeopoliticalRisk, GoldTable, IntermediateFactor, Intervention, InventorySnapshot, KPI, KPIObservation, LogisticsRisk, Port, PurchaseOrder, SKU, Shipment, Supplier, SupplyRisk, TransportLane) — matching a specific label already matches everything GraphNode would; you rarely need to match GraphNode directly.
+Note: InstanceRecord is a shared base label across 5 node types (DemandForecastSnapshot, InventorySnapshot, KPIObservation, PurchaseOrder, Shipment) — matching a specific label already matches everything InstanceRecord would; you rarely need to match InstanceRecord directly.
+Note: RiskNode is a shared base label across 5 node types (ComplianceRequirement, DemandRisk, GeopoliticalRisk, LogisticsRisk, SupplyRisk) — matching a specific label already matches everything RiskNode would; you rarely need to match RiskNode directly.
+Note: CausalMediator and IntermediateFactor nodes are the same underlying nodes (all these labels coexist) — matching any one of them matches the same nodes.
+Note: these properties hold date-like values stored as STRING, not a native Neo4j DATE (confirmed live): DemandForecastSnapshot.date, ForecastProjection.as_of_date, ForecastProjection.target_date, InventorySnapshot.date, KPIObservation.date, PurchaseOrder.actual_arrival_date, PurchaseOrder.order_date, PurchaseOrder.promised_arrival_date, Shipment.actual_delivery_date, Shipment.order_date, Shipment.promised_delivery_date. Wrap in date(...) before comparing to date() or duration arithmetic — comparing the raw string silently matches nothing.
+
+FEW-SHOT EXAMPLES KEPT (18 / 18):
+  - USER INPUT: 'Which suppliers ship to DC_EAST?' QUERY: MATCH (s:Supplier)-[:SHIPS_TO]->(dc:DistributionCenter {id: 'DC_EAST'}) RETURN s.id, s.name, s.tier
+  - USER INPUT: 'List all interventions that do not require approval.' QUERY: MATCH (i:Intervention {approval_required: false}) RETURN i.id, i.name, i.action_owner, i.lead_time_days
+  - USER INPUT: 'Which causal drivers can eventually lead to an increase in stockout_rate?' QUERY: MATCH (d:CausalDriver)-[:CAUSES|CONTRIBUTES_TO*1..5]->(k:KPI {id: 'stockout_rate'}) RETURN DISTINCT d.id, d.name
+  - USER INPUT: 'What interventions mitigate supplier lead time delay?' QUERY: MATCH (i:Intervention)-[:MITIGATES]->(d {id: 'supplier_lead_time_delay'}) RETURN i.id, i.name, i.approval_required, i.action_owner
+  - USER INPUT: 'Which purchase orders were delayed by more than 5 days?' QUERY: MATCH (po:PurchaseOrder) WHERE po.delay_days > 5 RETURN po.id, po.sku_id, po.supplier_id, po.delay_days ORDER BY po.delay_days DESC
+  - USER INPUT: 'How many inventory snapshots for SKU_1002 were below safety stock?' QUERY: MATCH (inv:InventorySnapshot {sku_id: 'SKU_1002', is_below_safety_stock: true}) RETURN count(inv) AS below_safety_stock_count
+  - USER INPUT: 'Show evidence records supporting the port_congestion driver, most recent first.' QUERY: MATCH (e)-[:EVIDENCES]->(d:CausalDriver {id: 'port_congestion'}) RETURN e.id, e.evidence_type, e.severity, e.confidence, e.date ORDER BY e.date DESC
+  - USER INPUT: 'What is the average forecast error percentage for SKU_1001 at DC_WEST?' QUERY: MATCH (f:DemandForecastSnapshot {sku_id: 'SKU_1001', dc_id: 'DC_WEST'}) RETURN avg(f.forecast_error_pct) AS avg_forecast_error_pct
+  - USER INPUT: 'List every KPI and its directionality.' QUERY: MATCH (k:KPI) RETURN k.id, k.name, k.directionality
+  - USER INPUT: 'Which SKUs are stored at more than one distribution center?' QUERY: MATCH (s:SKU)-[:STORED_AT]->(dc:DistributionCenter) WITH s, count(dc) AS dc_count WHERE dc_count > 1 RETURN s.id, dc_count
+  - USER INPUT: 'Which ports have a high risk level?' QUERY: MATCH (p:Port {risk_level: 'high'}) RETURN p.id, p.name, p.country, p.avg_dwell_days
+  - USER INPUT: 'List transport lanes that are not the primary lane.' QUERY: MATCH (l:TransportLane {is_primary: false}) RETURN l.id, l.name, l.origin_port, l.destination_dc, l.mode, l.cost_premium_pct
+  - USER INPUT: 'Show inventory snapshots for SKU_1002 at DC_EAST from the last 14 days.' QUERY: MATCH (i:InventorySnapshot {sku_id: 'SKU_1002', dc_id: 'DC_EAST'}) WHERE date(i.date) >= date() - duration('P14D') RETURN i.id, i.date, i.on_hand_units, i.inventory_cover_days, i.is_below_safety_stock ORDER BY i.date DESC
+  - USER INPUT: 'What was the average forecast error for SKU_1001 at DC_WEST over the last 30 days?' QUERY: MATCH (f:DemandForecastSnapshot {sku_id: 'SKU_1001', dc_id: 'DC_WEST'}) WHERE date(f.date) >= date() - duration('P30D') RETURN avg(f.forecast_error_pct) AS avg_forecast_error_pct
+  - USER INPUT: 'How did fill_rate change for SKU_1001 at DC_WEST over the last 30 days?' QUERY: MATCH (o:KPIObservation {sku_id: 'SKU_1001', dc_id: 'DC_WEST', kpi_id: 'fill_rate'}) WHERE date(o.date) >= date() - duration('P30D') RETURN o.date, o.value, o.threshold_breached ORDER BY o.date DESC
+  - USER INPUT: 'Which distribution centers have low on-time in-full delivery?' QUERY: MATCH (o:KPIObservation {kpi_id: 'otifd', threshold_breached: true}) RETURN DISTINCT o.dc_id, o.sku_id, o.date, o.value ORDER BY o.date DESC
+  - USER INPUT: 'Show evidence of supplier delay affecting DC_EAST in the last 60 days.' QUERY: MATCH (e)-[ev:EVIDENCES {evidence_type: 'supplier_delay'}]->(d) WHERE date(ev.date) >= date() - duration('P60D') RETURN e.id, d.id AS driver, ev.severity, ev.observed_value, ev.threshold_value, ev.date ORDER BY ev.date DESC
+  - USER INPUT: 'Which shipments to DC_EAST were not on-time-in-full in the last 21 days?' QUERY: MATCH (sh:Shipment {dc_id: 'DC_EAST', otif_flag: false}) WHERE date(sh.actual_delivery_date) >= date() - duration('P21D') RETURN sh.id, sh.sku_id, sh.customer_id, sh.promised_delivery_date, sh.actual_delivery_date ORDER BY sh.actual_delivery_date DESC
+
+FEW-SHOT EXAMPLES DROPPED as stale (0):
+  (none)
+

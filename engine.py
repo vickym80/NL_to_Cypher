@@ -24,6 +24,7 @@ from config.settings import Settings, get_settings
 from .examples import NL2CYPHER_EXAMPLES
 from .llm_provider import build_llm
 from .schema_context import filter_valid_examples, get_schema_model, render_schema_text
+from .schema_diff import snapshot_if_new_graph
 
 logger = logging.getLogger(__name__)
 
@@ -89,6 +90,16 @@ class NL2CypherEngine:
 
         self.schema_context = render_schema_text(schema_model)
         self.examples = filter_valid_examples(list(NL2CYPHER_EXAMPLES), schema_model)
+
+        try:
+            snapshot_if_new_graph(
+                self._settings,
+                schema_model,
+                kept_examples=self.examples,
+                dropped_examples=[ex for ex in NL2CYPHER_EXAMPLES if ex not in self.examples],
+            )
+        except Exception:  # noqa: BLE001 - a snapshot-logging failure must never block engine startup
+            logger.warning("Auto schema snapshot failed (non-fatal)", exc_info=True)
 
         self._llm = build_llm(self._settings)
         self._retriever = Text2CypherRetriever(

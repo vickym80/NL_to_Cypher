@@ -11,6 +11,9 @@ __pycache__/
 .env.*
 *.log
 
+# NL2Cypher: local per-machine "last connected graph" marker — see schema_diff.py
+results/.last_connected_graph.txt
+
 # macOS
 .DS_Store
 
